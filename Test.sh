@@ -1,0 +1,1 @@
+dotnet test Reference.Lib.Tests/Reference.Lib.Tests.csproj
