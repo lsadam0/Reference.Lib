@@ -71,7 +71,7 @@ namespace Reference.Lib.Utils
         public static void Print<T>(T[] data)
             where T : IComparable<T>
         {
-            Console.WriteLine(string.Join(",", data));
+            Console.WriteLine(string.Join("|", data));
         }
     }
 }

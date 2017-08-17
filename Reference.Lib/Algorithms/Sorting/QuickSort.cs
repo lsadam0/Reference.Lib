@@ -22,7 +22,7 @@ namespace Reference.Lib.Algorithms.Sorting
             Apply(data, partition + 1, high);
         }
 
-        private static int Partition(T[] data, int low, int high)
+        public static int Partition(T[] data, int low, int high)
         {
             /* This function takes last element as pivot, places
                 the pivot element at its correct position in sorted
@@ -30,18 +30,25 @@ namespace Reference.Lib.Algorithms.Sorting
                 to left of pivot and all greater elements to right
                 of pivot */
 
-            var pivot = data[high]; // use high pivot
+            // get pivot value
+            var pivot = data[high]; 
 
             int i = low - 1;
-            for (int j = low; j <= high - 1; ++j) // from low to high
+
+            for (int j = low; j <= high - 1; ++j) 
             {
+                // value is greater than pivot, do nothing
                 if (data[j].CompareTo(pivot) > 0) continue;
+
+                // value is <= pivot, do a swap
                 ++i; // increment i
                 data.Swap(i, j); // swap previous low with current
             }
 
             data.Swap(i + 1, high); // we now know from low to i is less than the pivot
             // select i + 1 as the new pivot, since it must be > old pivot
+
+            // invariant: (data[low..i] <= data[i+1])
             return i + 1;
         }
     }
