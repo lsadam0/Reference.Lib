@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using ReferenceLib.Utils;
+using Reference.Lib.Utils;
 
-namespace ReferenceLib.Test
+namespace Reference.Lib.Test
 {
     public static class TestUtils
     {

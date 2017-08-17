@@ -1,6 +1,6 @@
 using System;
 
-namespace ReferenceLib.Algorithms.Sorting
+namespace Reference.Lib.Algorithms.Sorting
 {
     public static class TopDownMergeSort<T>
         where T : IComparable<T>

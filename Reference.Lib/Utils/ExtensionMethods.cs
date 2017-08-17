@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReferenceLib.Utils
+namespace Reference.Lib.Utils
 {
     public static class ExtensionMethods
     {

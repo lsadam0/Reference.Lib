@@ -1,16 +1,22 @@
 using System;
-using ReferenceLib.Algorithms.Sorting;
-using ReferenceLib.Utils;
+using Reference.Lib.Algorithms.Sorting;
+using Reference.Lib.Utils;
 using Xunit;
 
-namespace ReferenceLib.Test.Algorithms.Sorting
+namespace Reference.Lib.Test.Algorithms.Sorting
 {
     public class SortingTests
     {
         [Fact]
-        public void TopDownMergeSort_Sorts()
+        public void TopDownMergeSort_DoesSort()
         {
             Execute(TopDownMergeSort<SortEntity>.Sort);
+        }
+
+        [Fact]
+        public void QuickSort_DoesSort()
+        {
+            Execute(QuickSort<SortEntity>.Sort);
         }
 
         private void Execute(Action<SortEntity[]> method)

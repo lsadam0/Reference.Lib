@@ -1,6 +1,6 @@
 using System;
 
-namespace ReferenceLib.Utils
+namespace Reference.Lib.Utils
 {
     /// <summary>
     ///     - Sorting operations only consider SortyEntity.Value

@@ -1,6 +1,6 @@
 using System;
 
-namespace ReferenceLib.Utils
+namespace Reference.Lib.Utils
 {
     public static class Data
     {
