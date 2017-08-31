@@ -2,6 +2,10 @@ using System;
 
 namespace Reference.Lib.Algorithms.General
 {
+    /// <summary>
+    /// Given an array of n values, find the consecutive 
+    /// sequence with the largest possible sum
+    /// </summary>
     public class MaximumSubarray
     {
         /// <summary>
