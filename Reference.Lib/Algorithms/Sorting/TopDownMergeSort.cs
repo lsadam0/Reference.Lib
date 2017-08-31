@@ -29,7 +29,7 @@ namespace Reference.Lib.Algorithms.Sorting
         {
             if (right - left < 2) return; // set size < 2, nothing to do
 
-            int mid = (right + left) / 2; // find midpoint
+            var mid = (right + left) / 2; // find midpoint
 
             SplitAndMerge(target, source, left, mid); // Left section.  Swap buffer & data 
             SplitAndMerge(target, source, mid, right); // Right section. Swap buffer and data         
@@ -47,11 +47,11 @@ namespace Reference.Lib.Algorithms.Sorting
         /// <param name="right">End of the right sub-collection</param>
         private static void Merge(T[] source, T[] target, int left, int mid, int right)
         {
-            int l = left;
-            int r = mid;
+            var l = left;
+            var r = mid;
 
             // n
-            for (int i = left; i < right; ++i)
+            for (var i = left; i < right; ++i)
                 if (
                     l < mid // l has not exceeded middle
                     &&

@@ -1,29 +1,20 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Diagnostics.Tracing;
 
 namespace Reference.Lib.DesignPatterns.Behavioral.ObserverPattern
 {
     public class Observer : IObserver<StateMessage>, IDisposable
     {
-        private IDisposable unsubscriber;
+        private readonly IDisposable unsubscriber;
 
         public Observer(IObservable<StateMessage> observable)
         {
             if (observable != null)
-            {
-                this.unsubscriber = observable.Subscribe(this);
-            }
+                unsubscriber = observable.Subscribe(this);
         }
 
         public void Dispose()
         {
-                this.unsubscriber.Dispose();
-        }
-
-        public void Unsubscribe()
-        {
-                this.unsubscriber.Dispose();
+            unsubscriber.Dispose();
         }
 
         public void OnCompleted()
@@ -34,17 +25,18 @@ namespace Reference.Lib.DesignPatterns.Behavioral.ObserverPattern
         public void OnError(Exception error)
         {
             if (error != null)
-            {
                 Inform("OnError");
-            }
         }
 
         public void OnNext(StateMessage value)
         {
             if (value != null)
-            {
                 Inform(value.Message);
-            }
+        }
+
+        public void Unsubscribe()
+        {
+            unsubscriber.Dispose();
         }
 
         private void Inform(string message)
@@ -52,5 +44,4 @@ namespace Reference.Lib.DesignPatterns.Behavioral.ObserverPattern
             Console.WriteLine(string.Format("Received - {0}", message));
         }
     }
-
 }

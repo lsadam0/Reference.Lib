@@ -2,15 +2,11 @@
 {
     public class StateMessage
     {
-        public string Message
-        {
-            get;
-            private set;
-        }
-
         public StateMessage(string message)
         {
-            this.Message = message;
+            Message = message;
         }
+
+        public string Message { get; private set; }
     }
 }

@@ -16,9 +16,9 @@ namespace Reference.Lib.Algorithms.Sorting
             if (low >= high) return;
 
             var partition = Partition(data, low, high);
-            
+
             Apply(data, low, partition - 1);
-            
+
             Apply(data, partition + 1, high);
         }
 
@@ -31,11 +31,11 @@ namespace Reference.Lib.Algorithms.Sorting
                 of pivot */
 
             // get pivot value
-            var pivot = data[high]; 
+            var pivot = data[high];
 
-            int i = low - 1;
+            var i = low - 1;
 
-            for (int j = low; j <= high - 1; ++j) 
+            for (var j = low; j <= high - 1; ++j)
             {
                 // value is greater than pivot, do nothing
                 if (data[j].CompareTo(pivot) > 0) continue;
