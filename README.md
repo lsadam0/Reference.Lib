@@ -1,20 +1,16 @@
-# Reference.Lib
+# A Reference Library of common Data Structures, Algorithms, and Design Patterns
 
-Reference implementations of common algorithms, data structures, and design patterns
-
-
-
-MicroService Design patterns
-https://azure.microsoft.com/en-us/blog/design-patterns-for-microservices/
+This is a personal project to im
 
 
-https://github.com/sdmg15/Best-websites-a-programmer-should-visit
+ ### Reference.Lib Requirements
 
-https://www.reddit.com/r/learnprogramming/comments/5qfywy/looking_for_amazing_data_structure_and_algorithm/
+ * .NET Standard 1.4 compatible framework
 
-C# Focused
-https://github.com/MartinChavez/CSharp
+### Reference.Lib.TestsRequirements
 
-http://www.albahari.com/threading/
+ * .NET Core 1.1
 
-http://exercism.io/
+## Licence
+
+Licenced under the [MIT Licence](LICENSE).
