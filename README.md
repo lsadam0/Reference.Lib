@@ -1,7 +1,6 @@
-# A Reference Library of common Data Structures, Algorithms, and Design Patterns
+# Reference Library 
 
-This is a personal project to im
-
+A personal project to implement common Data Structures, Algorithms, and Design Patterns
 
  ### Reference.Lib Requirements
 
@@ -11,6 +10,6 @@ This is a personal project to im
 
  * .NET Core 1.1
 
-## Licence
+### License
 
 Licenced under the [MIT Licence](LICENSE).
