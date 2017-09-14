@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,55 +9,254 @@ namespace Reference.Lib.DataStructures
 
     public class BinaryTree<T>
     {
+        private static readonly Func<BinaryTreeNode<T>, bool> IsFullDelegate = (node) => node.IsFull;
+        private static readonly Func<BinaryTreeNode<T>, bool> IsDegenerateDelegate = (node) => node.IsDegenerate;
+
+        private static readonly Func<int?, BinaryTreeNode<T>, bool> IsPerfectDelegate = (leafHeight, node) =>
+            {
+                if (!node.IsLeaf)
+                    return node.Children == 2;
+
+                if (leafHeight == null)
+                {
+                    leafHeight = node.Height;
+                    return true;
+                }
+
+                return node.Height == (int)leafHeight;
+            };
+
+
+
+        public virtual void Add(T value)
+        {
+            if (Root == null)
+            {
+                SetRoot(value);
+                return;
+            }
+
+            foreach (var node in this.BreadthFirstTraversal())
+            {
+                if (node.Children < 2)
+                {
+                    if (!node.HasLeftChild)
+                        SetAsLeftChild(node, value);
+                    else
+                        SetAsRightChild(node, value);
+
+                    break;
+                }
+            }
+        }
+
+
+        public void Add(params T[] values)
+        {
+            foreach (var value in values)
+                Add(value);
+        }
+
         public int Count { get; protected set; }
-        public BinaryTreeNode<T> Root { get; protected set; }
+        public BinaryTreeNode<T> Root { get; private set; }
 
         public bool IsEmpty => Root == null;
 
 
-        public bool IsDegenerate => throw new Exception();
+        /// <summary>
+        /// A tree is Degenerate if every node has one child
+        /// </summary>
+        /// <returns>true if the entire Tree is degenerate; otherwise false</returns>
+        public bool IsDegenerate => Root == null
+            ? false
+            : VerifyProperty(IsDegenerateDelegate, Root);
 
         /// <summary>
         ///   A Tree is full if every node has either 0 or 2 children
         /// </summary>
         /// <returns>true if Tree is full; otherwise false</returns>
-        public bool IsFull => Root != null
-        ? IsFullAt(Root)
-        : false;
+        public bool IsFull => Root == null
+            ? false
+            : VerifyProperty(IsFullDelegate, Root);
 
+
+
+        /// <summary>
+        ///     A 'Complete' tree has the property that every level,
+        ///     possibly excluding the last level, is completely filled.
+        ///     All nodes in the last level must be as far left as possible.
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool IsComplete => throw new Exception();
 
-        public int Height => throw new Exception();
 
-        public bool IsHeightBalanced => throw new Exception();
+        public int Height
+        {
+            get;
+            internal set;
+        }
 
-        public bool IsPerfect => throw new Exception();
-
-
-        private bool IsFullAt(BinaryTreeNode<T> node)
+        public void Clear()
         {
 
-            var count = GetChildCount(node);
+            Count = 0;
+            Root = null;
+        }
 
-            if (count == 1)
-                return false;
+        /// <summary>
+        ///     A 'Balanced' tree has the minimum possible height
+        /// </summary>
+        /// <returns></returns>
+        public bool IsHeightBalanced => Height <= OptimalHeight;
 
-            if (count == 0)
+
+        public int OptimalHeight => (int)Math.Log(Count, 2) + 1;
+
+        /// <summary>
+        ///     A 'Perfect' tree has the property that all interior nodes
+        ///     have two children and all leaves have the same depth/level
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPerfect
+        {
+            get
+            {
+                int? leftHeight = null;
+
+                Func<BinaryTreeNode<T>, bool> method = (node) => IsPerfectDelegate(leftHeight, node);
+
+                return VerifyProperty(method, Root);
+            }
+        }
+
+        private bool VerifyProperty(Func<BinaryTreeNode<T>, bool> method, BinaryTreeNode<T> node)
+        {
+            if (node == null)
                 return true;
 
-            return IsFullAt(node.Left) && IsFullAt(node.Right);
+            if (!method(node))
+                return false;
+
+            return VerifyProperty(method, node.Left) && VerifyProperty(method, node.Right);
         }
 
-        protected int GetChildCount(BinaryTreeNode<T> node)
+        protected void SetRoot(T value)
         {
-            if (node.Left == null && node.Right == null)
-                return 0;
-
-            if (node.Left != null && node.Right != null)
-                return 2;
-
-            return 1;
+            Root = new BinaryTreeNode<T>(value);
+            Root.Height = 1;
+            ++Count;
         }
+
+        protected void SetAsLeftChild(BinaryTreeNode<T> parent, T child)
+        {
+            parent.Left = new BinaryTreeNode<T>(child, parent.Height + 1);
+            ++Count;
+
+            if (parent.Left.Height > Height)
+                this.Height = parent.Left.Height;
+        }
+
+        protected void SetAsRightChild(BinaryTreeNode<T> parent, T child)
+        {
+            parent.Right = new BinaryTreeNode<T>(child, parent.Height + 1);
+            ++Count;
+
+            if (parent.Right.Height > Height)
+                this.Height = parent.Right.Height;
+        }
+
+
+
+        public IEnumerable<BinaryTreeNode<T>> InOrderTraversal() => InOrder(Root);
+
+        public IEnumerable<BinaryTreeNode<T>> PreOrderTraversal() => DepthFirstTraversal();
+
+        public IEnumerable<BinaryTreeNode<T>> PostOrderTraversal() => PostOrder(Root);
+
+        private IEnumerable<BinaryTreeNode<T>> PostOrder(BinaryTreeNode<T> root)
+        {
+            if (root == null)
+                yield break;
+
+            if (root.HasLeftChild)
+                foreach (var left in PostOrder(root.Left))
+                    yield return left;
+
+
+            if (root.HasRightChild)
+                foreach (var right in PostOrder(root.Right))
+                    yield return right;
+
+            yield return root;
+
+        }
+
+
+        private IEnumerable<BinaryTreeNode<T>> InOrder(BinaryTreeNode<T> root)
+        {
+            if (root == null)
+                yield break;
+
+            if (root.HasLeftChild)
+                foreach (var left in InOrder(root.Left))
+                    yield return left;
+
+            yield return root;
+
+            if (root.HasRightChild)
+                foreach (var right in InOrder(root.Right))
+                    yield return right;
+        }
+
+        public IEnumerable<BinaryTreeNode<T>> BreadthFirstTraversal()
+        {
+            if (Root == null)
+                yield break;
+
+            var queue = new Queue<BinaryTreeNode<T>>();
+            queue.Enqueue(Root);
+
+            while (queue.Count > 0)
+            {
+
+                var current = queue.Dequeue();
+
+                yield return current;
+
+                if (current.HasLeftChild)
+                    queue.Enqueue(current.Left);
+
+                if (current.HasRightChild)
+                    queue.Enqueue(current.Right);
+
+            }
+        }
+
+        public IEnumerable<BinaryTreeNode<T>> DepthFirstTraversal()
+        {
+            if (Root == null)
+                yield break;
+
+            var stack = new Stack<BinaryTreeNode<T>>();
+            stack.Push(Root);
+
+            while (stack.Count > 0)
+            {
+                var current = stack.Pop();
+
+                yield return current;
+
+                // LIFO
+                if (current.HasRightChild)
+                    stack.Push(current.Right);
+
+                if (current.HasLeftChild)
+                    stack.Push(current.Left);
+            }
+        }
+
+
     }
     /* 
     public class BinaryTree<T>

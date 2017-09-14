@@ -18,19 +18,16 @@ namespace Reference.Lib.DataStructures
 
         public BinarySearchTree(T[] data) : this()
         {
+            this.Add(data);
         }
 
 
-        public void Add(params T[] values)
-        {
-            foreach (var value in values)
-                Add(value);
-        }
-        public void Add(T value)
+
+        public override void Add(T value)
         {
             if (Root == null)
             {
-                this.Root = new BinaryTreeNode<T>(value);
+                SetRoot(value);
                 return;
             }
 
@@ -52,19 +49,12 @@ namespace Reference.Lib.DataStructures
             }
 
             if (lastWasLeftPath)
-                previous.Left = new BinaryTreeNode<T>(value);
+                base.SetAsLeftChild(previous, value);
             else
-                previous.Right = new BinaryTreeNode<T>(value);
-
-            ++Count;
-
+                base.SetAsRightChild(previous, value);
         }
 
-        public void Clear()
-        {
-            Root = null;
-            Count = 0;
-        }
+
 
     }
 }
