@@ -11,8 +11,6 @@ namespace Reference.Lib.Tests.DataStructures
     public class BinaryTreeTests
     {
 
-
-
         private BinaryTree<int> BuildTraversalTree()
         {
             var data = new int[5] { 1, 2, 3, 4, 5 };

@@ -10,7 +10,7 @@ namespace Reference.Lib.DataStructures
     public class BinaryTree<T>
     {
         private static readonly Func<BinaryTreeNode<T>, bool> IsFullDelegate = (node) => node.IsFull;
-        private static readonly Func<BinaryTreeNode<T>, bool> IsDegenerateDelegate = (node) => node.IsDegenerate;
+        private static readonly Func<BinaryTreeNode<T>, bool> IsDegenerateDelegate = (node) => node.IsDegenerate || node.IsLeaf;
 
         private static readonly Func<int?, BinaryTreeNode<T>, bool> IsPerfectDelegate = (leafHeight, node) =>
             {
@@ -88,7 +88,38 @@ namespace Reference.Lib.DataStructures
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool IsComplete => throw new Exception();
+        public bool IsComplete
+        {
+            get
+            {
+                var last = Height - 1;
+                var final = false;
+
+                foreach (var node in BreadthFirstTraversal())
+                {
+                    if (node.Height == last)
+                    {
+                        if (!final)
+                        {
+                            if (node.Children != 2)
+                                final = true;
+                        }
+                        else
+                        {
+                            if (!node.IsLeaf)
+                                return false;
+                        }
+                    }
+                    else if (node.Height < last)
+                    {
+                        if (node.Children < 2)
+                            return false;
+                    }
+                }
+
+                return true;
+            }
+        }
 
 
         public int Height
@@ -166,12 +197,40 @@ namespace Reference.Lib.DataStructures
                 this.Height = parent.Right.Height;
         }
 
-
-
+        /// <summary>
+        /// InOrder (Left, Root, Right)
+        ///             1
+        ///          /     \
+        ///         2       3
+        ///       /   \
+        ///      4     5
+        /// Output: 4,2,5,1,3
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BinaryTreeNode<T>> InOrderTraversal() => InOrder(Root);
 
+        /// <summary>
+        /// PreOrder (Root, Left, Right)
+        ///             1
+        ///          /     \
+        ///         2       3
+        ///       /   \
+        ///      4     5
+        /// Output: 1,2,4,5,3
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BinaryTreeNode<T>> PreOrderTraversal() => DepthFirstTraversal();
 
+        /// <summary>
+        /// PostOrder (Left, Right, Root)
+        ///             1
+        ///          /     \
+        ///         2       3
+        ///       /   \
+        ///      4     5
+        /// Output: 4,5,2,3,1
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BinaryTreeNode<T>> PostOrderTraversal() => PostOrder(Root);
 
         private IEnumerable<BinaryTreeNode<T>> PostOrder(BinaryTreeNode<T> root)
@@ -208,6 +267,7 @@ namespace Reference.Lib.DataStructures
                 foreach (var right in InOrder(root.Right))
                     yield return right;
         }
+
 
         public IEnumerable<BinaryTreeNode<T>> BreadthFirstTraversal()
         {
