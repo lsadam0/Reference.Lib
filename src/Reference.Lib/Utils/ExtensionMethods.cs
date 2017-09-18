@@ -40,7 +40,7 @@ namespace Reference.Lib.Utils
             where T : IComparable<T>
         {
             // O(n)
-            for (int i = 1; i < data.Length; ++i)
+            for (var i = 1; i < data.Length; ++i)
                 if (data[i - 1].CompareTo(data[i]) > 0)
                     return false;
             return true;

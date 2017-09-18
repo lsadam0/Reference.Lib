@@ -3,8 +3,8 @@ using System;
 namespace Reference.Lib.Algorithms.General
 {
     /// <summary>
-    /// Given an array of n values, find the consecutive 
-    /// sequence with the largest possible sum
+    ///     Given an array of n values, find the consecutive
+    ///     sequence with the largest possible sum
     /// </summary>
     public class MaximumSubarray
     {
@@ -15,14 +15,14 @@ namespace Reference.Lib.Algorithms.General
         /// </summary>
         public static int BruteForceSolution(int[] input)
         {
-            int largest = 0;
+            var largest = 0;
 
-            for (int x = 0; x < input.Length; ++x)
-            for (int y = x; y < input.Length; ++y)
+            for (var x = 0; x < input.Length; ++x)
+            for (var y = x; y < input.Length; ++y)
             {
-                int sum = 0;
+                var sum = 0;
 
-                for (int z = x; z <= y; ++z)
+                for (var z = x; z <= y; ++z)
                     sum += input[z];
 
                 largest = Math.Max(sum, largest);
@@ -37,12 +37,12 @@ namespace Reference.Lib.Algorithms.General
         /// </summary>
         public static int ImprovedSolution(int[] input)
         {
-            int largest = 0;
+            var largest = 0;
 
-            for (int x = 0; x < input.Length; ++x)
+            for (var x = 0; x < input.Length; ++x)
             {
-                int sum = 0;
-                for (int y = x; y < input.Length; ++y)
+                var sum = 0;
+                for (var y = x; y < input.Length; ++y)
                 {
                     sum += input[y];
                     largest = Math.Max(sum, largest);
@@ -57,10 +57,10 @@ namespace Reference.Lib.Algorithms.General
         /// </summary>
         public static int OptimalSolution(int[] input)
         {
-            int largest = 0;
-            int sum = 0;
+            var largest = 0;
+            var sum = 0;
 
-            for (int x = 0; x < input.Length; ++x)
+            for (var x = 0; x < input.Length; ++x)
             {
                 sum = Math.Max(input[x], sum + input[x]);
                 largest = Math.Max(largest, sum);

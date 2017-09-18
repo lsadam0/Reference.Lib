@@ -11,9 +11,9 @@ namespace Reference.Lib.Utils
             // 
             var size = Math.Abs(to - (from - 1));
             // int size = 
-            int[] res = new int[size];
+            var res = new int[size];
 
-            for (int b = 0; b < res.Length; ++b)
+            for (var b = 0; b < res.Length; ++b)
             {
                 res[b] = from;
                 ++from;
@@ -25,9 +25,9 @@ namespace Reference.Lib.Utils
 
         public static int[] Simple(int size)
         {
-            int[] result = new int[size];
+            var result = new int[size];
 
-            for (int i = 1; i < size; ++i)
+            for (var i = 1; i < size; ++i)
                 result[i - 1] = i;
 
             return result;
@@ -51,7 +51,7 @@ namespace Reference.Lib.Utils
 
             var rand = new Random();
 
-            int i = 0;
+            var i = 0;
 
             while (i < size)
             {

@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace Reference.Lib.DataStructures
 {
@@ -9,18 +7,17 @@ namespace Reference.Lib.DataStructures
     /// </summary>
     public class BinarySearchTree<T> : BinaryTree<T>
     {
-        private IComparer<T> comparer;
+        private readonly IComparer<T> comparer;
 
-        public BinarySearchTree() : base()
+        public BinarySearchTree()
         {
-            this.comparer = Comparer<T>.Default;
+            comparer = Comparer<T>.Default;
         }
 
         public BinarySearchTree(T[] data) : this()
         {
-            this.Add(data);
+            Add(data);
         }
-
 
 
         public override void Add(T value)
@@ -44,17 +41,14 @@ namespace Reference.Lib.DataStructures
                 lastWasLeftPath = res <= 0;
 
                 current = lastWasLeftPath
-                ? current.Left
-                : current.Right;
+                    ? current.Left
+                    : current.Right;
             }
 
             if (lastWasLeftPath)
-                base.SetAsLeftChild(previous, value);
+                SetAsLeftChild(previous, value);
             else
-                base.SetAsRightChild(previous, value);
+                SetAsRightChild(previous, value);
         }
-
-
-
     }
 }

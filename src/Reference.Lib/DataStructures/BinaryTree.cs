@@ -1,61 +1,28 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Reference.Lib.DataStructures
 {
-
-
     public class BinaryTree<T>
     {
-        private static readonly Func<BinaryTreeNode<T>, bool> IsFullDelegate = (node) => node.IsFull;
-        private static readonly Func<BinaryTreeNode<T>, bool> IsDegenerateDelegate = (node) => node.IsDegenerate || node.IsLeaf;
+        private static readonly Func<BinaryTreeNode<T>, bool> IsFullDelegate = node => node.IsFull;
+
+        private static readonly Func<BinaryTreeNode<T>, bool> IsDegenerateDelegate =
+            node => node.IsDegenerate || node.IsLeaf;
 
         private static readonly Func<int?, BinaryTreeNode<T>, bool> IsPerfectDelegate = (leafHeight, node) =>
-            {
-                if (!node.IsLeaf)
-                    return node.Children == 2;
-
-                if (leafHeight == null)
-                {
-                    leafHeight = node.Height;
-                    return true;
-                }
-
-                return node.Height == (int)leafHeight;
-            };
-
-
-
-        public virtual void Add(T value)
         {
-            if (Root == null)
+            if (!node.IsLeaf)
+                return node.Children == 2;
+
+            if (leafHeight == null)
             {
-                SetRoot(value);
-                return;
+                leafHeight = node.Height;
+                return true;
             }
 
-            foreach (var node in this.BreadthFirstTraversal())
-            {
-                if (node.Children < 2)
-                {
-                    if (!node.HasLeftChild)
-                        SetAsLeftChild(node, value);
-                    else
-                        SetAsRightChild(node, value);
-
-                    break;
-                }
-            }
-        }
-
-
-        public void Add(params T[] values)
-        {
-            foreach (var value in values)
-                Add(value);
-        }
+            return node.Height == (int) leafHeight;
+        };
 
         public int Count { get; protected set; }
         public BinaryTreeNode<T> Root { get; private set; }
@@ -64,7 +31,7 @@ namespace Reference.Lib.DataStructures
 
 
         /// <summary>
-        /// A tree is Degenerate if every node has one child
+        ///     A tree is Degenerate if every node has one child
         /// </summary>
         /// <returns>true if the entire Tree is degenerate; otherwise false</returns>
         public bool IsDegenerate => Root == null
@@ -72,7 +39,7 @@ namespace Reference.Lib.DataStructures
             : VerifyProperty(IsDegenerateDelegate, Root);
 
         /// <summary>
-        ///   A Tree is full if every node has either 0 or 2 children
+        ///     A Tree is full if every node has either 0 or 2 children
         /// </summary>
         /// <returns>true if Tree is full; otherwise false</returns>
         public bool IsFull => Root == null
@@ -80,12 +47,10 @@ namespace Reference.Lib.DataStructures
             : VerifyProperty(IsFullDelegate, Root);
 
 
-
         /// <summary>
         ///     A 'Complete' tree has the property that every level,
         ///     possibly excluding the last level, is completely filled.
         ///     All nodes in the last level must be as far left as possible.
-        /// 
         /// </summary>
         /// <returns></returns>
         public bool IsComplete
@@ -96,9 +61,7 @@ namespace Reference.Lib.DataStructures
                 var final = false;
 
                 foreach (var node in BreadthFirstTraversal())
-                {
                     if (node.Height == last)
-                    {
                         if (!final)
                         {
                             if (node.Children != 2)
@@ -109,31 +72,16 @@ namespace Reference.Lib.DataStructures
                             if (!node.IsLeaf)
                                 return false;
                         }
-                    }
                     else if (node.Height < last)
-                    {
                         if (node.Children < 2)
                             return false;
-                    }
-                }
 
                 return true;
             }
         }
 
 
-        public int Height
-        {
-            get;
-            internal set;
-        }
-
-        public void Clear()
-        {
-
-            Count = 0;
-            Root = null;
-        }
+        public int Height { get; internal set; }
 
         /// <summary>
         ///     A 'Balanced' tree has the minimum possible height
@@ -142,7 +90,7 @@ namespace Reference.Lib.DataStructures
         public bool IsHeightBalanced => Height <= OptimalHeight;
 
 
-        public int OptimalHeight => (int)Math.Log(Count, 2) + 1;
+        public int OptimalHeight => (int) Math.Log(Count, 2) + 1;
 
         /// <summary>
         ///     A 'Perfect' tree has the property that all interior nodes
@@ -155,10 +103,44 @@ namespace Reference.Lib.DataStructures
             {
                 int? leftHeight = null;
 
-                Func<BinaryTreeNode<T>, bool> method = (node) => IsPerfectDelegate(leftHeight, node);
+                Func<BinaryTreeNode<T>, bool> method = node => IsPerfectDelegate(leftHeight, node);
 
                 return VerifyProperty(method, Root);
             }
+        }
+
+
+        public virtual void Add(T value)
+        {
+            if (Root == null)
+            {
+                SetRoot(value);
+                return;
+            }
+
+            foreach (var node in BreadthFirstTraversal())
+                if (node.Children < 2)
+                {
+                    if (!node.HasLeftChild)
+                        SetAsLeftChild(node, value);
+                    else
+                        SetAsRightChild(node, value);
+
+                    break;
+                }
+        }
+
+
+        public void Add(params T[] values)
+        {
+            foreach (var value in values)
+                Add(value);
+        }
+
+        public void Clear()
+        {
+            Count = 0;
+            Root = null;
         }
 
         private bool VerifyProperty(Func<BinaryTreeNode<T>, bool> method, BinaryTreeNode<T> node)
@@ -185,7 +167,7 @@ namespace Reference.Lib.DataStructures
             ++Count;
 
             if (parent.Left.Height > Height)
-                this.Height = parent.Left.Height;
+                Height = parent.Left.Height;
         }
 
         protected void SetAsRightChild(BinaryTreeNode<T> parent, T child)
@@ -194,44 +176,53 @@ namespace Reference.Lib.DataStructures
             ++Count;
 
             if (parent.Right.Height > Height)
-                this.Height = parent.Right.Height;
+                Height = parent.Right.Height;
         }
 
         /// <summary>
-        /// InOrder (Left, Root, Right)
-        ///             1
-        ///          /     \
-        ///         2       3
-        ///       /   \
-        ///      4     5
-        /// Output: 4,2,5,1,3
+        ///     InOrder (Left, Root, Right)
+        ///     1
+        ///     /     \
+        ///     2       3
+        ///     /   \
+        ///     4     5
+        ///     Output: 4,2,5,1,3
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BinaryTreeNode<T>> InOrderTraversal() => InOrder(Root);
+        public IEnumerable<BinaryTreeNode<T>> InOrderTraversal()
+        {
+            return InOrder(Root);
+        }
 
         /// <summary>
-        /// PreOrder (Root, Left, Right)
-        ///             1
-        ///          /     \
-        ///         2       3
-        ///       /   \
-        ///      4     5
-        /// Output: 1,2,4,5,3
+        ///     PreOrder (Root, Left, Right)
+        ///     1
+        ///     /     \
+        ///     2       3
+        ///     /   \
+        ///     4     5
+        ///     Output: 1,2,4,5,3
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BinaryTreeNode<T>> PreOrderTraversal() => DepthFirstTraversal();
+        public IEnumerable<BinaryTreeNode<T>> PreOrderTraversal()
+        {
+            return DepthFirstTraversal();
+        }
 
         /// <summary>
-        /// PostOrder (Left, Right, Root)
-        ///             1
-        ///          /     \
-        ///         2       3
-        ///       /   \
-        ///      4     5
-        /// Output: 4,5,2,3,1
+        ///     PostOrder (Left, Right, Root)
+        ///     1
+        ///     /     \
+        ///     2       3
+        ///     /   \
+        ///     4     5
+        ///     Output: 4,5,2,3,1
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BinaryTreeNode<T>> PostOrderTraversal() => PostOrder(Root);
+        public IEnumerable<BinaryTreeNode<T>> PostOrderTraversal()
+        {
+            return PostOrder(Root);
+        }
 
         private IEnumerable<BinaryTreeNode<T>> PostOrder(BinaryTreeNode<T> root)
         {
@@ -248,7 +239,6 @@ namespace Reference.Lib.DataStructures
                     yield return right;
 
             yield return root;
-
         }
 
 
@@ -279,7 +269,6 @@ namespace Reference.Lib.DataStructures
 
             while (queue.Count > 0)
             {
-
                 var current = queue.Dequeue();
 
                 yield return current;
@@ -289,7 +278,6 @@ namespace Reference.Lib.DataStructures
 
                 if (current.HasRightChild)
                     queue.Enqueue(current.Right);
-
             }
         }
 
@@ -315,9 +303,8 @@ namespace Reference.Lib.DataStructures
                     stack.Push(current.Left);
             }
         }
-
-
     }
+
     /* 
     public class BinaryTree<T>
         where T : IComparable<T>

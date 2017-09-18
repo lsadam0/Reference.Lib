@@ -2,15 +2,16 @@ namespace Reference.Lib.DataStructures
 {
     public class BinaryTreeNode<T>
     {
+        internal int Height;
 
         public BinaryTreeNode(T value, int height) : this(value)
         {
-            this.Height = height;
+            Height = height;
         }
 
         public BinaryTreeNode(T value)
         {
-            this.Value = value;
+            Value = value;
         }
 
         public BinaryTreeNode<T> Left { get; internal set; }
@@ -20,7 +21,7 @@ namespace Reference.Lib.DataStructures
         public T Value { get; internal set; }
 
         /// <summary>
-        /// Get child count
+        ///     Get child count
         /// </summary>
         /// <returns></returns>
         public int Children
@@ -36,13 +37,14 @@ namespace Reference.Lib.DataStructures
                 return 1;
             }
         }
+
         /// <summary>
-        /// Has no children
+        ///     Has no children
         /// </summary>
         public bool IsLeaf => Children == 0;
 
         /// <summary>
-        /// Has zero or two children
+        ///     Has zero or two children
         /// </summary>
         public bool IsFull => Children == 2 || IsLeaf;
 
@@ -50,9 +52,5 @@ namespace Reference.Lib.DataStructures
         public bool HasLeftChild => Left != null;
 
         public bool HasRightChild => Right != null;
-
-        internal int Height;
-
-
     }
 }
