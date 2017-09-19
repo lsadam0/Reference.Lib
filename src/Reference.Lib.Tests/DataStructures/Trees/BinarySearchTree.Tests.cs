@@ -3,10 +3,10 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
-using Reference.Lib.DataStructures;
+using Reference.Lib.DataStructures.Trees;
 using Reference.Lib.Test.Utils;
 
-namespace Reference.Lib.Tests.DataStructures
+namespace Reference.Lib.Tests.DataStructures.Trees
 {
     public class BinarySearchTreeTests
     {

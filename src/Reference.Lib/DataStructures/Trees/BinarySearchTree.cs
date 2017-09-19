@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
-namespace Reference.Lib.DataStructures
+namespace Reference.Lib.DataStructures.Trees
 {
     /// <summary>
     ///     A Binary Tree is not the same as a BST
     /// </summary>
     public class BinarySearchTree<T> : BinaryTree<T>
     {
-        private readonly IComparer<T> comparer;
+       protected readonly IComparer<T> comparer;
 
         public BinarySearchTree()
         {

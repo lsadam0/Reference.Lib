@@ -30,5 +30,19 @@ namespace Reference.Lib.Test.Algorithms.Sorting
         {
             Execute(TopDownMergeSort<SortEntity>.Sort);
         }
+
+        [Fact]
+        public void HeapSort_DoesSort()
+        {
+            var testData = TestUtils.GetEntityTestData();
+            var reference = new SortEntity[testData.Length];
+            Array.Copy(testData, reference, testData.Length);
+           
+            var res = HeapSort<SortEntity>.Sort(testData);
+
+            Assert.True(res.IsSorted());
+            Assert.True(res.IsValid(reference));
+            Assert.False(reference.IsSorted());
+        }
     }
 }

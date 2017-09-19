@@ -1,4 +1,4 @@
-namespace Reference.Lib.DataStructures
+namespace Reference.Lib.DataStructures.Trees
 {
     public class BinaryTreeNode<T>
     {
