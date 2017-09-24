@@ -1,20 +1,21 @@
 using System;
+using System.Collections.Generic;
 
 namespace Reference.Lib.Algorithms.Sorting
 {
-    public static class TopDownMergeSort<T>
-        where T : IComparable<T>
+    public static class TopDownMergeSortExtension
     {
         /// <summary>
         ///     Runtime: O(n log n) Memory: Ω(n)
         /// </summary>
         /// <param name="data"></param>
-        public static void Sort(T[] data)
-        {
-            var buffer = new T[data.Length];
+        public static void TopDownMergeSort<T>(this IList<T> data)
+        where T : IComparable<T>
 
-            Array.Copy(data, buffer, data.Length);
-            SplitAndMerge(buffer, data, 0, buffer.Length);
+        {
+            IList<T> buffer = new List<T>(data);              
+            // Array.Copy(data, buffer, data.Length);
+            SplitAndMerge(buffer, data, 0, buffer.Count);
         }
 
 
@@ -25,7 +26,8 @@ namespace Reference.Lib.Algorithms.Sorting
         /// <param name="target">Array to be merged into</param>
         /// <param name="left">Index of the start of the left sub-collection</param>
         /// <param name="right">Index of the end of the right sub-collection</param>
-        private static void SplitAndMerge(T[] source, T[] target, int left, int right)
+        private static void SplitAndMerge<T>(IList<T> source, IList<T> target, int left, int right)
+                where T : IComparable<T>
         {
             if (right - left < 2) return; // set size < 2, nothing to do
 
@@ -45,7 +47,8 @@ namespace Reference.Lib.Algorithms.Sorting
         /// <param name="left">Start of left sub-collection</param>
         /// <param name="mid">Midpoint of collection division</param>
         /// <param name="right">End of the right sub-collection</param>
-        private static void Merge(T[] source, T[] target, int left, int mid, int right)
+        private static void Merge<T>(IList<T> source, IList<T> target, int left, int mid, int right)
+                where T : IComparable<T>
         {
             var l = left;
             var r = mid;

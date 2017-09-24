@@ -16,7 +16,7 @@ namespace Reference.Lib.Tests.DataStructures.Heaps
         {
             var test = new MaxBinaryHeap<int>();
 
-            Assert.True(test.Compare(10, 9));
+            Assert.True(test.HeapProperty(10, 9));
         }
 
 
@@ -25,7 +25,15 @@ namespace Reference.Lib.Tests.DataStructures.Heaps
         {
             var test = new MinBinaryHeap<int>();
 
-            Assert.True(test.Compare(9, 10));
+            Assert.True(test.HeapProperty(9, 10));
+        }
+
+        [Fact]
+        public void BinaryHeap_DoesHeapfiy()
+        {
+            var heap = new MaxBinaryHeap<int>(1,2,3,4,5,6,7,8,9,10);
+            Assert.Equal(10, heap.HeapSize);
+            Assert.True(heap.IsValidHeap);
         }
 
         [Fact]

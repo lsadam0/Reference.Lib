@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Reference.Lib.DataStructures.Trees;
 
 namespace Reference.Lib.DataStructures.Heaps
@@ -12,7 +13,12 @@ namespace Reference.Lib.DataStructures.Heaps
         public MaxBinaryHeap(params T[] data): base(data)
         {}
 
-        internal override bool Compare(T a, T b)
+        public MaxBinaryHeap(IList<T> data) : base(data)
+        {
+            
+        }
+
+        internal override bool HeapProperty(T a, T b)
         {
             return base.Comparer.Compare(a, b) >= 0;
         }

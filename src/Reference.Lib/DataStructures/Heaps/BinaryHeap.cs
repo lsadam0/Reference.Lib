@@ -9,22 +9,67 @@ namespace Reference.Lib.DataStructures.Heaps
     {
         public bool IsValidHeap => HasHeapProperty(0);
 
-        public int HeapSize { get; private set; } = 0;
+        public int HeapSize { get; internal set; } = 0;
 
+        /// <summary>
+        /// Initialize empty heap
+        /// </summary>
+        /// <returns></returns>
         protected BinaryHeap() : base()
         {
 
         }
 
-        protected BinaryHeap(params T[] data) : base()
+        /// <summary>
+        /// Initialize heap using data, and invoke BuildHeap
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        protected BinaryHeap(params T[] data) : base(data)
         {
-            _store = new List<T>(data);
             HeapSize = _store.Count;
-            Heapify(HeapSize - 1);
+            BuildHeap();
         }
 
-        internal abstract bool Compare(T a, T b);
+        protected BinaryHeap(IList<T> data) : base(data)
+        {
+            HeapSize = _store.Count;
+            BuildHeap();
+        }
 
+
+        /// <summary>
+        /// O(n log n)
+        /// </summary>
+        private void BuildHeap()
+        {
+            for (int i = IndexOfFirstNonLeafNode; i >= 0; --i)
+                Heapify(i);
+        }
+
+        /// <summary>
+        /// Because a heap is a complete binary tree,
+        /// the index of the first non-leaf node is 
+        /// given by the below formula
+        /// </summary>
+        /// <returns></returns>
+        private int IndexOfFirstNonLeafNode => (int)(HeapSize / 2) - 1;
+
+        /// <summary>
+        /// Heap property comparison method.  Should be
+        /// overridden according to the type of heap desired
+        /// </summary>
+        /// <param name="root"></param>
+        /// <param name="child"></param>
+        /// <returns>true if the Heap property is maintained for root -> child</returns>
+        internal abstract bool HeapProperty(T root, T child);
+
+        /// <summary>
+        /// Recursively determine if a sub-tree maintains
+        /// the heap property
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns>true if the sub-tree maintains the heap property</returns>    
         private bool HasHeapProperty(int root)
         {
             if (!ElementExists(root))
@@ -36,12 +81,12 @@ namespace Reference.Lib.DataStructures.Heaps
             T value = GetElement(root);
 
             if (HasLeftChild(root))
-                if (!Compare(value, GetElement(leftIdx)))
+                if (!HeapProperty(value, GetElement(leftIdx)))
                     return false;
 
 
             if (HasRightChild(root))
-                if (!Compare(value, GetElement(rightIdx)))
+                if (!HeapProperty(value, GetElement(rightIdx)))
                     return false;
 
 
@@ -69,15 +114,26 @@ namespace Reference.Lib.DataStructures.Heaps
 
         public void Add(T value)
         {
-            // _store[HeapSize] = value;
+            // add to end of the store
             _store.Add(value);
+            // heap has increased in size
             ++HeapSize;
+            // ensure our added value occupies it's
+            // correct position in the heap
             BubbleUp(HeapSize - 1);
 
         }
 
-        public void Heapfiy() => Heapify(0);
+        /// <summary>
+        /// O(log n)
+        /// </summary>
+        public void Heapify() => Heapify(0);
 
+
+        /// <summary>
+        /// O(log n)
+        /// </summary>
+        /// <param name="index"></param>
         public void Heapify(int index)
         {
             if (!ElementExists(index))
@@ -90,7 +146,7 @@ namespace Reference.Lib.DataStructures.Heaps
             {
                 var left = GetElement(GetLeftIndex(index));
 
-                if (Compare(left, rootValue))
+                if (HeapProperty(left, rootValue))
                 {
                     rootIndex = GetLeftIndex(index);
                     rootValue = left;
@@ -101,7 +157,7 @@ namespace Reference.Lib.DataStructures.Heaps
             {
                 var right = GetElement(GetRightIndex(index));
 
-                if (Compare(right, rootValue))
+                if (HeapProperty(right, rootValue))
                 {
                     rootIndex = GetRightIndex(index);
                     rootValue = right;
@@ -126,7 +182,7 @@ namespace Reference.Lib.DataStructures.Heaps
                 return;
 
 
-            if (!Compare(GetElement(parent), GetElement(idx)))
+            if (!HeapProperty(GetElement(parent), GetElement(idx)))
             {
                 // heap property not maintained
                 Swap(parent, idx);

@@ -1,17 +1,27 @@
 using System;
+using System.Collections.Generic;
 using Reference.Lib.Utils;
 
 namespace Reference.Lib.Algorithms.Sorting
 {
-    public static class QuickSort<T>
-        where T : IComparable<T>
+    public static class QuickSortExtension
     {
-        public static void Sort(T[] data)
+        /// <summary>
+        /// Average: O(n log n) 
+        /// Best:  O(n log n) 
+        /// Worst: O(n log n) 
+        /// Space: O(1)
+        /// Stable: No
+        /// </summary>
+        /// <param name="data">Collection to be sorted</param>
+        public static void QuickSort<T>(this IList<T> data)
+                    where T : IComparable<T>
         {
-            Apply(data, 0, data.Length - 1);
+            Apply(data, 0, data.Count - 1);
         }
 
-        private static void Apply(T[] data, int low, int high)
+        private static void Apply<T>(IList<T> data, int low, int high)
+                    where T : IComparable<T>
         {
             if (low >= high) return;
 
@@ -22,7 +32,8 @@ namespace Reference.Lib.Algorithms.Sorting
             Apply(data, partition + 1, high);
         }
 
-        public static int Partition(T[] data, int low, int high)
+        public static int Partition<T>(IList<T> data, int low, int high)
+            where T : IComparable<T>
         {
             /* This function takes last element as pivot, places
                 the pivot element at its correct position in sorted

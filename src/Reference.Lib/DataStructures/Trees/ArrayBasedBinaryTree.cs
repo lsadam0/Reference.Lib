@@ -7,7 +7,7 @@ namespace Reference.Lib.DataStructures.Trees
     public abstract class ArrayBasedBinaryTree<T>
     {
 
-        protected List<T> _store;
+        protected IList<T> _store;
 
         protected IComparer<T> Comparer;
 
@@ -16,6 +16,12 @@ namespace Reference.Lib.DataStructures.Trees
         protected ArrayBasedBinaryTree()
         {
             _store = new List<T>();
+            Comparer = Comparer<T>.Default;
+        }
+
+        protected ArrayBasedBinaryTree(IList<T> data)
+        {
+            _store = data;
             Comparer = Comparer<T>.Default;
         }
 

@@ -6,7 +6,7 @@ namespace Reference.Lib.Algorithms.General
     ///     Given an array of n values, find the consecutive
     ///     sequence with the largest possible sum
     /// </summary>
-    public class MaximumSubarray
+    public static class MaximumSubarray
     {
         /// <summary>
         ///     O(n^3)
@@ -24,7 +24,7 @@ namespace Reference.Lib.Algorithms.General
 
                 for (var z = x; z <= y; ++z)
                     sum += input[z];
-
+                    
                 largest = Math.Max(sum, largest);
             }
 

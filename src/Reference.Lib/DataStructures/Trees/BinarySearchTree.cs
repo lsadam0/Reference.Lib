@@ -7,14 +7,15 @@ namespace Reference.Lib.DataStructures.Trees
     /// </summary>
     public class BinarySearchTree<T> : BinaryTree<T>
     {
-       protected readonly IComparer<T> comparer;
+        protected readonly IComparer<T> comparer;
 
         public BinarySearchTree()
         {
             comparer = Comparer<T>.Default;
         }
 
-        public BinarySearchTree(T[] data) : this()
+        public BinarySearchTree(T[] data)
+            : this()
         {
             Add(data);
         }

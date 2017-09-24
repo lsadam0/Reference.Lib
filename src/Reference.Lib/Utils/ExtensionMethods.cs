@@ -25,10 +25,10 @@ namespace Reference.Lib.Utils
             return bu.ToString();
         }
 
-        public static void Swap<T>(this T[] source, int a, int b)
+        public static void Swap<T>(this IList<T> source, int a, int b)
         {
             if (a == b) return;
-            if (a >= source.Length || b >= source.Length)
+            if (a >= source.Count || b >= source.Count)
                 throw new ArgumentException("One or both args exceed array length");
 
             var temp = source[a];

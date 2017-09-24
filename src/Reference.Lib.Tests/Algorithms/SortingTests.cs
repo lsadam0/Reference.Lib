@@ -20,29 +20,14 @@ namespace Reference.Lib.Test.Algorithms.Sorting
         }
 
         [Fact]
-        public void QuickSort_DoesSort()
-        {
-            Execute(QuickSort<SortEntity>.Sort);
-        }
-
+        public void QuickSort_DoesSort() => Execute((e) => e.QuickSort());
+        
         [Fact]
-        public void TopDownMergeSort_DoesSort()
-        {
-            Execute(TopDownMergeSort<SortEntity>.Sort);
-        }
-
+        public void TopDownMergeSort_DoesSort() => Execute((e) => e.TopDownMergeSort());
+        
         [Fact]
-        public void HeapSort_DoesSort()
-        {
-            var testData = TestUtils.GetEntityTestData();
-            var reference = new SortEntity[testData.Length];
-            Array.Copy(testData, reference, testData.Length);
-           
-            var res = HeapSort<SortEntity>.Sort(testData);
+        public void HeapSort_DoesSort() => Execute((e) => e.HeapSort());
 
-            Assert.True(res.IsSorted());
-            Assert.True(res.IsValid(reference));
-            Assert.False(reference.IsSorted());
-        }
+        
     }
 }
