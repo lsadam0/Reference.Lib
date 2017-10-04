@@ -1,4 +1,4 @@
-version: '1.0.{build}'
+version: '0.1.{build}'
 image: Visual Studio 2017
 branches:
   only:
@@ -19,7 +19,7 @@ build_script:
 after_build:
   # For once the build has completed
 artifacts:
- - path: '\src\bin\Debug\netcoreapp2.0\publish'
+ - path: '\src\Reference.Lib\bin\Debug\netcoreapp2.0\publish'
    name: ReferenceLibrary
    type: WebDeployPackage
 clone_depth: 1
