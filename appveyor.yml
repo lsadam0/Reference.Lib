@@ -28,7 +28,8 @@ test_script:
   - cmd: dotnet restore ./test/Reference.Lib.Tests/Reference.Lib.Tests.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
   - cmd: cd test
-  - cmd: dotnet xunit
+  - cmd: cd Reference.Lib.Tests
+  - cmd: dotnet test
 on_finish :
   # any cleanup in here
 deploy: off
