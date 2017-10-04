@@ -2,8 +2,6 @@
 
 Reference implementations of common algorithms, data structures, and design patterns
 
-
-
 MicroService Design patterns
 https://azure.microsoft.com/en-us/blog/design-patterns-for-microservices/
 
