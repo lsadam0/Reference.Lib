@@ -12,4 +12,11 @@ A personal project to implement common Data Structures, Algorithms, and Design P
 
 ### License
 
+[![Build status](https://ci.appveyor.com/api/projects/status/87k61mi5foscwcto?svg=true)](https://ci.appveyor.com/project/lsadam0/reference-lib)
+
+# Reference.Lib
+
+Reference implementations of common algorithms, data structures, and design patterns
+
+
 Licenced under the [MIT Licence](LICENSE).
