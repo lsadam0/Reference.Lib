@@ -7,21 +7,21 @@ namespace Reference.Lib.Algorithms.Sorting
     public static class QuickSortExtension
     {
         /// <summary>
-        /// Average: O(n log n) 
-        /// Best:  O(n log n) 
-        /// Worst: O(n log n) 
-        /// Space: O(1)
-        /// Stable: No
+        ///     Average: O(n log n)
+        ///     Best:  O(n log n)
+        ///     Worst: O(n log n)
+        ///     Space: O(1)
+        ///     Stable: No
         /// </summary>
         /// <param name="data">Collection to be sorted</param>
         public static void QuickSort<T>(this IList<T> data)
-                    where T : IComparable<T>
+            where T : IComparable<T>
         {
             Apply(data, 0, data.Count - 1);
         }
 
         private static void Apply<T>(IList<T> data, int low, int high)
-                    where T : IComparable<T>
+            where T : IComparable<T>
         {
             if (low >= high) return;
 

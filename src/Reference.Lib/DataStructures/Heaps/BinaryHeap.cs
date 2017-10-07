@@ -1,63 +1,61 @@
-using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using Reference.Lib.DataStructures.Trees;
 
 namespace Reference.Lib.DataStructures.Heaps
 {
     public abstract class BinaryHeap<T> : ArrayBasedBinaryTree<T>
     {
-        public bool IsValidHeap => HasHeapProperty(0);
-
-        public int HeapSize { get; internal set; } = 0;
-
         /// <summary>
-        /// Initialize empty heap
+        ///     Initialize empty heap
         /// </summary>
         /// <returns></returns>
-        protected BinaryHeap() : base()
+        protected BinaryHeap()
         {
-
         }
 
         /// <summary>
-        /// Initialize heap using data, and invoke BuildHeap
+        ///     Initialize heap using data, and invoke BuildHeap
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
         protected BinaryHeap(params T[] data) : base(data)
         {
-            HeapSize = _store.Count;
+            HeapSize = Store.Count;
             BuildHeap();
         }
 
         protected BinaryHeap(IList<T> data) : base(data)
         {
-            HeapSize = _store.Count;
+            HeapSize = Store.Count;
             BuildHeap();
         }
 
+        public bool IsValidHeap => HasHeapProperty(0);
+
+        public int HeapSize { get; internal set; }
 
         /// <summary>
-        /// O(n log n)
+        ///     Because a heap is a complete binary tree,
+        ///     the index of the first non-leaf node is
+        ///     given by the below formula
+        /// </summary>
+        /// <returns></returns>
+        private int IndexOfFirstNonLeafNode => HeapSize / 2 - 1;
+
+
+        /// <summary>
+        ///     O(n log n)
         /// </summary>
         private void BuildHeap()
         {
-            for (int i = IndexOfFirstNonLeafNode; i >= 0; --i)
+            for (var i = IndexOfFirstNonLeafNode; i >= 0; --i)
                 Heapify(i);
         }
 
         /// <summary>
-        /// Because a heap is a complete binary tree,
-        /// the index of the first non-leaf node is 
-        /// given by the below formula
-        /// </summary>
-        /// <returns></returns>
-        private int IndexOfFirstNonLeafNode => (int)(HeapSize / 2) - 1;
-
-        /// <summary>
-        /// Heap property comparison method.  Should be
-        /// overridden according to the type of heap desired
+        ///     Heap property comparison method.  Should be
+        ///     overridden according to the type of heap desired
         /// </summary>
         /// <param name="root"></param>
         /// <param name="child"></param>
@@ -65,11 +63,11 @@ namespace Reference.Lib.DataStructures.Heaps
         internal abstract bool HeapProperty(T root, T child);
 
         /// <summary>
-        /// Recursively determine if a sub-tree maintains
-        /// the heap property
+        ///     Recursively determine if a sub-tree maintains
+        ///     the heap property
         /// </summary>
         /// <param name="root"></param>
-        /// <returns>true if the sub-tree maintains the heap property</returns>    
+        /// <returns>true if the sub-tree maintains the heap property</returns>
         private bool HasHeapProperty(int root)
         {
             if (!ElementExists(root))
@@ -78,7 +76,7 @@ namespace Reference.Lib.DataStructures.Heaps
             var leftIdx = GetLeftIndex(root);
             var rightIdx = GetRightIndex(root);
 
-            T value = GetElement(root);
+            var value = GetElement(root);
 
             if (HasLeftChild(root))
                 if (!HeapProperty(value, GetElement(leftIdx)))
@@ -94,9 +92,15 @@ namespace Reference.Lib.DataStructures.Heaps
         }
 
 
+        private bool HasLeftChild(int root)
+        {
+            return ElementExists(GetLeftIndex(root));
+        }
 
-        private bool HasLeftChild(int root) => ElementExists(GetLeftIndex(root));
-        private bool HasRightChild(int root) => ElementExists(GetRightIndex(root));
+        private bool HasRightChild(int root)
+        {
+            return ElementExists(GetRightIndex(root));
+        }
 
         private bool ElementExists(int idx)
         {
@@ -115,23 +119,25 @@ namespace Reference.Lib.DataStructures.Heaps
         public void Add(T value)
         {
             // add to end of the store
-            _store.Add(value);
+            Store.Add(value);
             // heap has increased in size
             ++HeapSize;
             // ensure our added value occupies it's
             // correct position in the heap
             BubbleUp(HeapSize - 1);
-
         }
 
         /// <summary>
-        /// O(log n)
+        ///     O(log n)
         /// </summary>
-        public void Heapify() => Heapify(0);
+        public void Heapify()
+        {
+            Heapify(0);
+        }
 
 
         /// <summary>
-        /// O(log n)
+        ///     O(log n)
         /// </summary>
         /// <param name="index"></param>
         public void Heapify(int index)
@@ -140,7 +146,7 @@ namespace Reference.Lib.DataStructures.Heaps
                 return;
 
             var rootIndex = index;
-            T rootValue = GetElement(index);
+            var rootValue = GetElement(index);
 
             if (HasLeftChild(index))
             {
@@ -160,7 +166,6 @@ namespace Reference.Lib.DataStructures.Heaps
                 if (HeapProperty(right, rootValue))
                 {
                     rootIndex = GetRightIndex(index);
-                    rootValue = right;
                 }
             }
 
@@ -194,11 +199,13 @@ namespace Reference.Lib.DataStructures.Heaps
         {
             var buffer = GetElement(x);
 
-            _store[x] = _store[y];
-            _store[y] = buffer;
+            Store[x] = Store[y];
+            Store[y] = buffer;
         }
 
-        public T[] ToArray() => _store.ToArray();
-
+        public T[] ToArray()
+        {
+            return Store.ToArray();
+        }
     }
 }

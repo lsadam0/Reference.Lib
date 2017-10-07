@@ -24,7 +24,7 @@ namespace Reference.Lib.Algorithms.General
 
                 for (var z = x; z <= y; ++z)
                     sum += input[z];
-                    
+
                 largest = Math.Max(sum, largest);
             }
 
@@ -60,9 +60,9 @@ namespace Reference.Lib.Algorithms.General
             var largest = 0;
             var sum = 0;
 
-            for (var x = 0; x < input.Length; ++x)
+            foreach (int t in input)
             {
-                sum = Math.Max(input[x], sum + input[x]);
+                sum = Math.Max(t, sum + t);
                 largest = Math.Max(largest, sum);
             }
 

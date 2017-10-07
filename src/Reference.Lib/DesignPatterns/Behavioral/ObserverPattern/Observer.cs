@@ -4,17 +4,17 @@ namespace Reference.Lib.DesignPatterns.Behavioral.ObserverPattern
 {
     public class Observer : IObserver<StateMessage>, IDisposable
     {
-        private readonly IDisposable unsubscriber;
+        private readonly IDisposable _unsubscriber;
 
         public Observer(IObservable<StateMessage> observable)
         {
             if (observable != null)
-                unsubscriber = observable.Subscribe(this);
+                _unsubscriber = observable.Subscribe(this);
         }
 
         public void Dispose()
         {
-            unsubscriber.Dispose();
+            _unsubscriber.Dispose();
         }
 
         public void OnCompleted()
@@ -36,7 +36,7 @@ namespace Reference.Lib.DesignPatterns.Behavioral.ObserverPattern
 
         public void Unsubscribe()
         {
-            unsubscriber.Dispose();
+            _unsubscriber.Dispose();
         }
 
         private void Inform(string message)

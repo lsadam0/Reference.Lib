@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace Reference.Lib.DataStructures.Trees
 {
-    public class BinarySearchTree<T> : BinaryTree<T>, IEnumerable<T>
+    public class BinarySearchTree<T> : BinaryTree<T>
     {
-        protected readonly IComparer<T> comparer;
+        protected readonly IComparer<T> Comparer;
 
         public BinarySearchTree()
         {
-            comparer = Comparer<T>.Default;
+            Comparer = Comparer<T>.Default;
         }
 
         public BinarySearchTree(T[] data)
@@ -32,7 +32,7 @@ namespace Reference.Lib.DataStructures.Trees
 
             while (current != null)
             {
-                var res = comparer.Compare(value, current.Value);
+                var res = Comparer.Compare(value, current.Value);
 
                 previous = current;
 

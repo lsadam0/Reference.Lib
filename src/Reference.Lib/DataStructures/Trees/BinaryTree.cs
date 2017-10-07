@@ -6,7 +6,6 @@ namespace Reference.Lib.DataStructures.Trees
 {
     public class BinaryTree<T> : IEnumerable<T>
     {
-
         public TreeTraversalMethod TraversalMethod { get; set; } = TreeTraversalMethod.BreadthFirst;
 
         public int Count { get; protected set; }
@@ -18,17 +17,13 @@ namespace Reference.Lib.DataStructures.Trees
         ///     A tree is Degenerate if every node has one child
         /// </summary>
         /// <returns>true if the entire Tree is degenerate; otherwise false</returns>
-        public bool IsDegenerate => Root == null
-            ? false
-            : VerifyProperty(IsDegenerateDelegate, Root);
+        public bool IsDegenerate => Root != null && VerifyProperty(IsDegenerateDelegate, Root);
 
         /// <summary>
         ///     A Tree is full if every node has either 0 or 2 children
         /// </summary>
         /// <returns>true if Tree is full; otherwise false</returns>
-        public bool IsFull => Root == null
-            ? false
-            : VerifyProperty(IsFullDelegate, Root);
+        public bool IsFull => Root != null && VerifyProperty(IsFullDelegate, Root);
 
 
         /// <summary>
@@ -74,7 +69,7 @@ namespace Reference.Lib.DataStructures.Trees
         public bool IsHeightBalanced => Height <= OptimalHeight;
 
 
-        public int OptimalHeight => (int)Math.Log(Count, 2) + 1;
+        public int OptimalHeight => (int) Math.Log(Count, 2) + 1;
 
         /// <summary>
         ///     A 'Perfect' tree has the property that all interior nodes
@@ -85,12 +80,44 @@ namespace Reference.Lib.DataStructures.Trees
         {
             get
             {
-                int? leftHeight = null;
+                bool Method(BinaryTreeNode<T> node) => IsPerfectDelegate(null, node);
 
-                Func<BinaryTreeNode<T>, bool> method = node => IsPerfectDelegate(leftHeight, node);
-
-                return VerifyProperty(method, Root);
+                return VerifyProperty(Method, Root);
             }
+        }
+
+        public virtual IEnumerator<T> GetEnumerator()
+        {
+            if (Root == null)
+                yield break;
+
+            Func<IEnumerable<BinaryTreeNode<T>>> method;
+            switch (TraversalMethod)
+            {
+                case TreeTraversalMethod.InOrder:
+                    method = InOrderTraversal;
+                    break;
+                case TreeTraversalMethod.PreOrder:
+                    method = PreOrderTraversal;
+                    break;
+                case TreeTraversalMethod.PostOrder:
+                    method = PostOrderTraversal;
+                    break;
+                case TreeTraversalMethod.BreadthFirst:
+                    method = BreadthFirstTraversal;
+                    break;
+                default:
+                    method = DepthFirstTraversal;
+                    break;
+            }
+
+            foreach (var res in method())
+                yield return res.Value;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
 
@@ -140,8 +167,7 @@ namespace Reference.Lib.DataStructures.Trees
 
         protected void SetRoot(T value)
         {
-            Root = new BinaryTreeNode<T>(value);
-            Root.Height = 1;
+            Root = new BinaryTreeNode<T>(value) {Height = 1};
             ++Count;
         }
 
@@ -273,9 +299,15 @@ namespace Reference.Lib.DataStructures.Trees
             }
         }
 
-        private static bool IsFullDelegate(BinaryTreeNode<T> node) => node.IsFull;
+        private static bool IsFullDelegate(BinaryTreeNode<T> node)
+        {
+            return node.IsFull;
+        }
 
-        private static bool IsDegenerateDelegate(BinaryTreeNode<T> node) => node.IsDegenerate || node.IsLeaf;
+        private static bool IsDegenerateDelegate(BinaryTreeNode<T> node)
+        {
+            return node.IsDegenerate || node.IsLeaf;
+        }
 
 
         private static bool IsPerfectDelegate(int? leafHeight, BinaryTreeNode<T> node)
@@ -285,47 +317,10 @@ namespace Reference.Lib.DataStructures.Trees
 
             if (leafHeight == null)
             {
-                leafHeight = node.Height;
                 return true;
             }
 
-            return node.Height == (int)leafHeight;
-        }
-
-        public virtual IEnumerator<T> GetEnumerator()
-        {   
-            if (Root == null) 
-            {
-                yield break;
-            }
-            
-            Func<IEnumerable<BinaryTreeNode<T>>> method;
-            switch (this.TraversalMethod)
-            {
-                case (TreeTraversalMethod.InOrder):
-                    method = this.InOrderTraversal;
-                    break;
-                case (TreeTraversalMethod.PreOrder):
-                    method = this.PreOrderTraversal;
-                    break;
-                case (TreeTraversalMethod.PostOrder):
-                    method = this.PostOrderTraversal;
-                    break;
-                case (TreeTraversalMethod.BreadthFirst):
-                    method = this.BreadthFirstTraversal;
-                    break;
-                default:
-                    method = this.DepthFirstTraversal;
-                    break;
-            }
-
-            foreach (var res in method())
-                yield return res.Value;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
+            return node.Height == (int) leafHeight;
         }
     }
 }

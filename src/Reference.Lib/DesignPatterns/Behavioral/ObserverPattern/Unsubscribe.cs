@@ -4,21 +4,21 @@ namespace Reference.Lib.DesignPatterns.Behavioral.ObserverPattern
 {
     public class Unsubscribe<T> : IDisposable
     {
-        private readonly T toUnsubscribe;
-        private Func<T, bool> unsubscribeMethod;
+        private readonly T _toUnsubscribe;
+        private Func<T, bool> _unsubscribeMethod;
 
         public Unsubscribe(Func<T, bool> method, T observer)
         {
-            unsubscribeMethod = method;
-            toUnsubscribe = observer;
+            _unsubscribeMethod = method;
+            _toUnsubscribe = observer;
         }
 
         public void Dispose()
         {
-            if (unsubscribeMethod != null)
+            if (_unsubscribeMethod != null)
             {
-                unsubscribeMethod(toUnsubscribe);
-                unsubscribeMethod = null;
+                _unsubscribeMethod(_toUnsubscribe);
+                _unsubscribeMethod = null;
             }
         }
     }

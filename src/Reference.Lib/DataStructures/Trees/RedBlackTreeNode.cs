@@ -1,8 +1,5 @@
-using System;
-
 namespace Reference.Lib.DataStructures.Trees
 {
-
     /*
     * Each node is either red or black.
     * The root is black. This rule is sometimes omitted. Since the 
@@ -24,19 +21,12 @@ namespace Reference.Lib.DataStructures.Trees
      */
     public class RedBlackTreeNode<T> : BinaryTreeNode<T>
     {
-
-        public bool IsRed 
+        public RedBlackTreeNode(T value) : base(value)
         {
-            get; private set;
         }
 
+        public bool IsRed { get; private set; }
+
         public bool IsBlack => !IsRed;
-
-        public RedBlackTreeNode(T value) : base(value)
-        { }
-
-
-        
     }
-
 }
