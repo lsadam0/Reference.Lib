@@ -32,7 +32,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void Count_DoesTrackAdditions()
+        public void BinarySearchTree_Count_DoesTrackAdditions()
         {
             var tree = BuildDefaultTree();
 
@@ -43,7 +43,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void Empty_DoesIdentifyEmptyTree()
+        public void BinarySearchTree_Empty_DoesIdentifyEmptyTree()
         {
             var tree = BuildDefaultTree();
             Assert.False(tree.IsEmpty);
@@ -57,7 +57,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
 
 
         [Fact]
-        public void IsPerfect_DoesIdentifyPerfect()
+        public void BinarySearchTree_IsPerfect_DoesIdentifyPerfect()
         {
             var tree = BuildDefaultTree();
 
@@ -65,7 +65,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void IsBalanced_DoesIdentifyBalanced()
+        public void BinarySearchTree_IsBalanced_DoesIdentifyBalanced()
         {
             var tree = new BinarySearchTree<int>();
            // Assert.True(tree.IsHeightBalanced);
@@ -85,7 +85,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
 
 
         [Fact]
-        public void IsDegenerate_DoesIdentifyDegenerateTree()
+        public void BinarySearchTree_IsDegenerate_DoesIdentifyDegenerateTree()
         {
             var tree = new BinarySearchTree<int>();
 
@@ -100,7 +100,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void IsFull_DoesIdentifyFullTree()
+        public void BinarySearchTree_IsFull_DoesIdentifyFullTree()
         {
             //         100
             //     50       110
@@ -124,7 +124,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void IsComplete_DoesIdentifyComplete()
+        public void BinarySearchTree_IsComplete_DoesIdentifyComplete()
         {
             var tree = BuildDefaultTree();
             Assert.True(tree.IsComplete);

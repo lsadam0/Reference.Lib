@@ -1,10 +1,14 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Reference.Lib.DataStructures.Trees
 {
-    public class BinaryTree<T>
+    public class BinaryTree<T> : IEnumerable<T>
     {
+
+        public TreeTraversalMethod TraversalMethod { get; set; } = TreeTraversalMethod.BreadthFirst;
+
         public int Count { get; protected set; }
         public BinaryTreeNode<T> Root { get; private set; }
 
@@ -161,10 +165,10 @@ namespace Reference.Lib.DataStructures.Trees
 
         /// <summary>
         ///     InOrder (Left, Root, Right)
-        ///     Output: 4,2,5,1,3
+        ///     Output: 4,2,5,1,
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BinaryTreeNode<T>> InOrderTraversal()
+        protected IEnumerable<BinaryTreeNode<T>> InOrderTraversal()
         {
             return InOrder(Root);
         }
@@ -174,7 +178,7 @@ namespace Reference.Lib.DataStructures.Trees
         ///     Output: 1,2,4,5,3
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BinaryTreeNode<T>> PreOrderTraversal()
+        protected IEnumerable<BinaryTreeNode<T>> PreOrderTraversal()
         {
             return DepthFirstTraversal();
         }
@@ -184,7 +188,7 @@ namespace Reference.Lib.DataStructures.Trees
         ///     Output: 4,5,2,3,1
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BinaryTreeNode<T>> PostOrderTraversal()
+        protected IEnumerable<BinaryTreeNode<T>> PostOrderTraversal()
         {
             return PostOrder(Root);
         }
@@ -224,7 +228,7 @@ namespace Reference.Lib.DataStructures.Trees
         }
 
 
-        public IEnumerable<BinaryTreeNode<T>> BreadthFirstTraversal()
+        protected IEnumerable<BinaryTreeNode<T>> BreadthFirstTraversal()
         {
             if (Root == null)
                 yield break;
@@ -246,7 +250,7 @@ namespace Reference.Lib.DataStructures.Trees
             }
         }
 
-        public IEnumerable<BinaryTreeNode<T>> DepthFirstTraversal()
+        protected IEnumerable<BinaryTreeNode<T>> DepthFirstTraversal()
         {
             if (Root == null)
                 yield break;
@@ -286,6 +290,42 @@ namespace Reference.Lib.DataStructures.Trees
             }
 
             return node.Height == (int)leafHeight;
+        }
+
+        public virtual IEnumerator<T> GetEnumerator()
+        {   
+            if (Root == null) 
+            {
+                yield break;
+            }
+            
+            Func<IEnumerable<BinaryTreeNode<T>>> method;
+            switch (this.TraversalMethod)
+            {
+                case (TreeTraversalMethod.InOrder):
+                    method = this.InOrderTraversal;
+                    break;
+                case (TreeTraversalMethod.PreOrder):
+                    method = this.PreOrderTraversal;
+                    break;
+                case (TreeTraversalMethod.PostOrder):
+                    method = this.PostOrderTraversal;
+                    break;
+                case (TreeTraversalMethod.BreadthFirst):
+                    method = this.BreadthFirstTraversal;
+                    break;
+                default:
+                    method = this.DepthFirstTraversal;
+                    break;
+            }
+
+            foreach (var res in method())
+                yield return res.Value;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
         }
     }
 }

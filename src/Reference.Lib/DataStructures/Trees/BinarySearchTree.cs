@@ -2,10 +2,7 @@ using System.Collections.Generic;
 
 namespace Reference.Lib.DataStructures.Trees
 {
-    /// <summary>
-    ///     A Binary Tree is not the same as a BST
-    /// </summary>
-    public class BinarySearchTree<T> : BinaryTree<T>
+    public class BinarySearchTree<T> : BinaryTree<T>, IEnumerable<T>
     {
         protected readonly IComparer<T> comparer;
 

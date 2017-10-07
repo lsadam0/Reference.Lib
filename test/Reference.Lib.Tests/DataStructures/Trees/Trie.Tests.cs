@@ -7,7 +7,7 @@ namespace Reference.Lib.Test.DataStructures.Trees
     public class TrieTests
     {
         [Fact]
-        public void SimpleCase()
+        public void Trie_SimpleCase()
         {
             var data = new string[5]
             {
@@ -25,7 +25,6 @@ namespace Reference.Lib.Test.DataStructures.Trees
             Assert.Equal(4, trie.WordCount);
 
             var all = trie.GetWords();
-            {}
         }
     }
 }
