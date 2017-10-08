@@ -1,17 +1,15 @@
-using System;
-
 namespace Reference.Lib.DataStructures.Collections
 {
-    public class LinkedListNode<T>
+    public class LinkedListNode<T> : ILinkedListNode<T>
     {
-        public T Value { get; }
-
-        public LinkedListNode<T> Next { get; internal set; }
-
-        public LinkedListNode(T value, LinkedListNode<T> next)
+        public LinkedListNode(T value, ILinkedListNode<T> next)
         {
             Value = value;
             Next = next;
         }
+
+        public T Value { get; }
+
+        public virtual ILinkedListNode<T> Next { get; internal set; }
     }
 }

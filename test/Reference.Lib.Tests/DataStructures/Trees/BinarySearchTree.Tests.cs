@@ -1,16 +1,10 @@
-using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using Xunit;
 using Reference.Lib.DataStructures.Trees;
-using Reference.Lib.Test.Utils;
+using Xunit;
 
 namespace Reference.Lib.Tests.DataStructures.Trees
 {
     public class BinarySearchTreeTests
     {
-
         private BinarySearchTree<int> BuildDefaultTree()
         {
             var tree = new BinarySearchTree<int>();
@@ -26,7 +20,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
             // 31
             //
 
-            var set = new int[7] { 10, 9, 12, 8, 10, 11, 13 };
+            var set = new int[7] {10, 9, 12, 8, 10, 11, 13};
             tree.Add(set);
             return tree;
         }
@@ -68,7 +62,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         public void BinarySearchTree_IsBalanced_DoesIdentifyBalanced()
         {
             var tree = new BinarySearchTree<int>();
-           // Assert.True(tree.IsHeightBalanced);
+            // Assert.True(tree.IsHeightBalanced);
 
             tree = BuildDefaultTree();
             Assert.True(tree.IsHeightBalanced);
@@ -78,10 +72,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
 
             tree.Add(6);
             Assert.False(tree.IsHeightBalanced);
-
         }
-
-  
 
 
         [Fact]
@@ -111,7 +102,8 @@ namespace Reference.Lib.Tests.DataStructures.Trees
             var tree = new BinarySearchTree<int>();
             tree.Add(100, 110, 50, 40, 90, 80, 95);
 
-            { }
+            {
+            }
             Assert.True(tree.IsFull, "Initial");
             tree = BuildDefaultTree();
             Assert.True(tree.IsFull, "Default Tree");

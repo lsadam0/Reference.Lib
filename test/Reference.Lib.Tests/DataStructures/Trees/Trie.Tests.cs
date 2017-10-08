@@ -1,4 +1,3 @@
-using System;
 using Reference.Lib.DataStructures.Trees;
 using Xunit;
 

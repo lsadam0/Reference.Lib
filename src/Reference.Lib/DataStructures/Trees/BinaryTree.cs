@@ -80,7 +80,10 @@ namespace Reference.Lib.DataStructures.Trees
         {
             get
             {
-                bool Method(BinaryTreeNode<T> node) => IsPerfectDelegate(null, node);
+                bool Method(BinaryTreeNode<T> node)
+                {
+                    return IsPerfectDelegate(null, node);
+                }
 
                 return VerifyProperty(Method, Root);
             }
@@ -316,9 +319,7 @@ namespace Reference.Lib.DataStructures.Trees
                 return node.Children == 2;
 
             if (leafHeight == null)
-            {
                 return true;
-            }
 
             return node.Height == (int) leafHeight;
         }

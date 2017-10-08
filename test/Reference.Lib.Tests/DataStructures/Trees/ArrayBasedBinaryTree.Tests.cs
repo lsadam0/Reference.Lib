@@ -1,17 +1,10 @@
-using System;
 using Reference.Lib.DataStructures.Trees;
 using Xunit;
 
 namespace Reference.Lib.Test.DataStructures.Trees
 {
-
-
     public class ArrayBasedBinaryTreeTests
     {
-
-        class TestTree : ArrayBasedBinaryTree<int>
-        { }
-
         [Fact]
         public void GetLeftIndex_IsCorrect()
         {
@@ -50,6 +43,10 @@ namespace Reference.Lib.Test.DataStructures.Trees
         {
             var isRight = new TestTree().IsRightChild(4);
             Assert.True(isRight);
+        }
+
+        private class TestTree : ArrayBasedBinaryTree<int>
+        {
         }
     }
 }

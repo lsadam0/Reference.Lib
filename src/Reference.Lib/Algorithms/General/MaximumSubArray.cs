@@ -60,7 +60,7 @@ namespace Reference.Lib.Algorithms.General
             var largest = 0;
             var sum = 0;
 
-            foreach (int t in input)
+            foreach (var t in input)
             {
                 sum = Math.Max(t, sum + t);
                 largest = Math.Max(largest, sum);

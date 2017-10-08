@@ -36,7 +36,8 @@ namespace Reference.Lib.DesignPatterns.Behavioral.ObserverPattern
 
         public void NotifyOfStateChange()
         {
-            var message = new StateMessage(string.Format("State changed @ {0}", DateTime.Now.ToString(CultureInfo.CurrentCulture)));
+            var message = new StateMessage(string.Format("State changed @ {0}",
+                DateTime.Now.ToString(CultureInfo.CurrentCulture)));
 
             foreach (var observer in _stateObservers)
                 observer.OnNext(message);

@@ -4,9 +4,8 @@ namespace Reference.Lib.DataStructures.Trees
 {
     public abstract class ArrayBasedBinaryTree<T>
     {
-        protected IList<T> Store;
-
         protected IComparer<T> Comparer;
+        protected IList<T> Store;
 
         protected ArrayBasedBinaryTree()
         {

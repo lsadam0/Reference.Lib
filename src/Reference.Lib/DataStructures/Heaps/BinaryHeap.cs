@@ -164,9 +164,7 @@ namespace Reference.Lib.DataStructures.Heaps
                 var right = GetElement(GetRightIndex(index));
 
                 if (HeapProperty(right, rootValue))
-                {
                     rootIndex = GetRightIndex(index);
-                }
             }
 
             if (rootIndex != index)

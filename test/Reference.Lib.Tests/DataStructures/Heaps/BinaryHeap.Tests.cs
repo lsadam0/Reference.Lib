@@ -1,11 +1,5 @@
-using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
-using Xunit;
-using Reference.Lib.DataStructures.Trees;
-using Reference.Lib.Test.Utils;
 using Reference.Lib.DataStructures.Heaps;
+using Xunit;
 
 namespace Reference.Lib.Tests.DataStructures.Heaps
 {
@@ -31,7 +25,7 @@ namespace Reference.Lib.Tests.DataStructures.Heaps
         [Fact]
         public void BinaryHeap_DoesHeapfiy()
         {
-            var heap = new MaxBinaryHeap<int>(1,2,3,4,5,6,7,8,9,10);
+            var heap = new MaxBinaryHeap<int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
             Assert.Equal(10, heap.HeapSize);
             Assert.True(heap.IsValidHeap);
         }
@@ -41,7 +35,7 @@ namespace Reference.Lib.Tests.DataStructures.Heaps
         {
             var heap = new MaxBinaryHeap<int>();
 
-            heap.Add(1,2,3,4,5,6,7,8,9,10);
+            heap.Add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
 
             Assert.Equal(10, heap.HeapSize);
@@ -54,7 +48,7 @@ namespace Reference.Lib.Tests.DataStructures.Heaps
         {
             var heap = new MaxBinaryHeap<int>();
 
-            heap.Add(10,9,8,7,6,5,4,3,2,1);
+            heap.Add(10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
 
             Assert.Equal(10, heap.HeapSize);
             Assert.True(heap.IsValidHeap);
@@ -63,7 +57,7 @@ namespace Reference.Lib.Tests.DataStructures.Heaps
         [Fact]
         public void BinaryHeap_DoesHeapify()
         {
-            var heap = new MaxBinaryHeap<int>(1,2,3,4,5,6,7,8,9,10);
+            var heap = new MaxBinaryHeap<int>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
             Assert.Equal(10, heap.HeapSize);
             Assert.True(heap.IsValidHeap);

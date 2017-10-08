@@ -1,13 +1,12 @@
 using System;
 using System.Text;
-using Xunit;
+using System.Collections;
+using System.Collections.Generic;
 
-namespace Reference.Lib.Test.Utils 
+namespace Reference.Lib.Test.Utils
 {
-
     public static class ExtensionMethods
     {
-
         public static bool ValueEquality<T>(this T[] source, T[] other)
             where T : IEquatable<T>
         {
@@ -15,10 +14,8 @@ namespace Reference.Lib.Test.Utils
                 return false;
 
             for (int x = 0; x < source.Length; ++x)
-            {
                 if (!source[x].Equals(other[x]))
                     return false;
-            }
 
             return true;
         }
@@ -40,8 +37,6 @@ namespace Reference.Lib.Test.Utils
             build.Append("]");
 
             return build.ToString();
-
         }
-
     }
 }

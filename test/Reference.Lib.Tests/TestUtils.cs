@@ -1,8 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Reference.Lib.Utils;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Diagnostics;
+using System.Diagnostics.Tracing;
 
 namespace Reference.Lib.Test
 {
@@ -10,7 +12,7 @@ namespace Reference.Lib.Test
     {
         public static int[] GetTestData()
         {
-            return new int[] { 4, 1, 3, 2, 16, 9, 10, 14, 8, 7 };
+            return new int[] {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
         }
 
         public static SortEntity[] GetEntityTestData()
