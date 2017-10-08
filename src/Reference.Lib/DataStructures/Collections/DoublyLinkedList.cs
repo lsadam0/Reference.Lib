@@ -7,11 +7,18 @@ namespace Reference.Lib.DataStructures.Collections
             return node.Last as DoublyLinkedListNode<T>;
         }
 
-        protected override void AddNodeAfter(DoublyLinkedListNode<T> node, DoublyLinkedListNode<T> value)
+        protected override void AddNodeAfter(
+            DoublyLinkedListNode<T> node, 
+            DoublyLinkedListNode<T> value)
         {
             value.Next = node.Next;
             value.Last = node;
             node.Next = value;
+
+            if (value.Next != null)
+            {
+                ((DoublyLinkedListNode<T>)value.Next).Last = (DoublyLinkedListNode<T>)value;
+            }
         }
 
         protected override void AddNodeBefore(DoublyLinkedListNode<T> node, DoublyLinkedListNode<T> value,
@@ -20,7 +27,7 @@ namespace Reference.Lib.DataStructures.Collections
             value.Next = node;
             value.Last = node.Last;
             node.Last = value;
-            
+
             if (predecessor != null)
                 predecessor.Next = value;
             // ancestor
