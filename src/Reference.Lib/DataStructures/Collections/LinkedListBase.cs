@@ -69,6 +69,7 @@ namespace Reference.Lib.DataStructures.Collections
         {
             Head = node;
             Tail = node;
+            ++Count;
         }
 
         protected abstract TN CreateNodeFor(TV value);
@@ -148,6 +149,7 @@ namespace Reference.Lib.DataStructures.Collections
                 Tail = predecessor;
 
             RemoveNode(predecessor, toRemove);
+            --Count;
             return true;
         }
 

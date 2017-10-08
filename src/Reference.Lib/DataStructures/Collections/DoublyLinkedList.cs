@@ -20,6 +20,9 @@ namespace Reference.Lib.DataStructures.Collections
             value.Next = node;
             value.Last = node.Last;
             node.Last = value;
+            
+            if (predecessor != null)
+                predecessor.Next = value;
             // ancestor
         }
 
@@ -37,7 +40,7 @@ namespace Reference.Lib.DataStructures.Collections
                 predecessor.Next = successor;
 
             if (successor != null)
-                ((DoublyLinkedListNode<T>) successor).Last = predecessor;
+                ((DoublyLinkedListNode<T>)successor).Last = predecessor;
 
             toRemove.Next = null;
             toRemove.Last = null;

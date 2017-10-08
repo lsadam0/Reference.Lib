@@ -1,1 +1,1 @@
-dotnet build src/Reference.Lib/Reference.Lib.csproj
+dotnet build Reference.Lib.sln

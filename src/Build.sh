@@ -1,1 +1,0 @@
-dotnet build Reference.Lib/Reference.Lib.csproj

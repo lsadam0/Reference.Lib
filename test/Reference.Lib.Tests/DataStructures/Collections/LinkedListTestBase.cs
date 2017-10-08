@@ -16,7 +16,7 @@ namespace Reference.Lib.Tests.DataStructures.Collections
             list.AddFirst(2);
             var expectedHead = list.AddFirst(1);
 
-            IsInOrder(list);
+            IsInOrder(list, 2);
             Assert.Equal(1, list.Head.Value);
             Assert.Equal(2, list.Tail.Value);
             Assert.Equal(list.Head.Next, list.Tail);
@@ -28,8 +28,8 @@ namespace Reference.Lib.Tests.DataStructures.Collections
             var list = CreateList();
             list.AddLast(1);
             list.AddLast(2);
-
-            IsInOrder(list);
+        
+            IsInOrder(list, 2);
             Assert.Equal(1, list.Head.Value);
             Assert.Equal(2, list.Tail.Value);
             Assert.Equal(list.Head.Next, list.Tail);
@@ -44,7 +44,7 @@ namespace Reference.Lib.Tests.DataStructures.Collections
             list.AddFirst(1);
 
             list.AddBefore(target, 2);
-            IsInOrder(list);
+            IsInOrder(list, 3);
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace Reference.Lib.Tests.DataStructures.Collections
             var target = list.AddFirst(1);
 
             list.AddAfter(target, 2);
-            IsInOrder(list);
+            IsInOrder(list, 3);
         }
 
         [Fact]
@@ -67,18 +67,21 @@ namespace Reference.Lib.Tests.DataStructures.Collections
             list.AddLast(2);
 
             list.Remove(3);
-            IsInOrder(list);
+            IsInOrder(list, 2);
         }
 
-        private void IsInOrder(L list)
+        protected void IsInOrder(L list, int expectedCount)
         {
             var n = -1;
-
+            var count = 0;
             foreach (var value in list)
             {
                 Assert.True(value > n);
                 n = value;
+                ++count;
             }
+            Assert.Equal(expectedCount, count);
+            Assert.Equal(expectedCount, list.Count);
         }
     }
 }
