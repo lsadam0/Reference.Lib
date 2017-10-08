@@ -111,7 +111,7 @@ namespace Reference.Lib.DataStructures.Collections
         public ILinkedListNode<TV> RemoveLast()
         {
             var res = Tail;
-            Tail = GetPredecessorOf(Tail);
+            Remove(Tail);
             return res;
         }
 
