@@ -59,7 +59,7 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void BinarySearchTree_IsBalanced_DoesIdentifyBalanced()
+        public void BinarySearchTree_IsHeightBalanced_DoesIdentifyBalanced()
         {
             var tree = new BinarySearchTree<int>();
             // Assert.True(tree.IsHeightBalanced);
@@ -74,6 +74,21 @@ namespace Reference.Lib.Tests.DataStructures.Trees
             Assert.False(tree.IsHeightBalanced);
         }
 
+        [Fact]
+        public void BinarySearchTree_IsBalanced_DoesIdentifyBalanced()
+        {
+            var tree = new BinarySearchTree<int>();
+            // Assert.True(tree.IsHeightBalanced);
+
+            tree = BuildDefaultTree();
+            Assert.True(tree.IsBalanced);
+
+            tree.Add(7);
+            Assert.True(tree.IsBalanced);
+
+            tree.Add(6);
+            Assert.False(tree.IsBalanced);
+        }
 
         [Fact]
         public void BinarySearchTree_IsDegenerate_DoesIdentifyDegenerateTree()

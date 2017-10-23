@@ -62,12 +62,41 @@ namespace Reference.Lib.DataStructures.Trees
 
         public int Height { get; internal set; }
 
+
+        public bool IsHeightBalanced =>  Height <= OptimalHeight;
+
         /// <summary>
-        ///     A 'Balanced' tree has the minimum possible height
+        ///     * Left & RIght sub-tree heights differ by 1, at most
+        ///     * Left sub-tree is balanced
+        ///     * Right sub-tree is balanced
         /// </summary>
         /// <returns></returns>
-        public bool IsHeightBalanced => Height <= OptimalHeight;
+        public bool IsBalanced => IsBalancedNode(Root);
 
+        private bool IsBalancedNode(BinaryTreeNode<T> node)
+        {
+            if (node == null) return true;
+
+            // this fails to get correct height
+            var leftH = node.HasLeftChild ? GetTreeHeightFrom(node.Left) : 0;
+            var rightH = node.HasRightChild ? GetTreeHeightFrom(node.Right) : 0;
+
+            return Math.Abs(leftH - rightH) <= 1 && IsBalancedNode(node.Right) && IsBalancedNode(node.Left);
+        }
+
+        protected int GetTreeHeightFrom(BinaryTreeNode<T> node)
+        {
+            var offset = node.Height;
+            var max = 0;
+
+            foreach (var child in InOrder(node))
+            {
+                var adjusted = child.Height - offset;
+                max = adjusted > max ? adjusted : max;
+            }
+
+            return max;
+        }
 
         public int OptimalHeight => (int) Math.Log(Count, 2) + 1;
 
@@ -76,7 +105,8 @@ namespace Reference.Lib.DataStructures.Trees
         ///     have two children and all leaves have the same depth/level
         /// </summary>
         /// <returns></returns>
-        public bool IsPerfect
+        public bool IsPerfect => IsFull && IsComplete;
+        /*
         {
             get
             {
@@ -87,7 +117,7 @@ namespace Reference.Lib.DataStructures.Trees
 
                 return VerifyProperty(Method, Root);
             }
-        }
+        }*/
 
         public virtual IEnumerator<T> GetEnumerator()
         {
@@ -257,7 +287,8 @@ namespace Reference.Lib.DataStructures.Trees
         }
 
 
-        protected IEnumerable<BinaryTreeNode<T>> BreadthFirstTraversal()
+        protected IEnumerable<BinaryTreeNode<T>> 
+        BreadthFirstTraversal()
         {
             if (Root == null)
                 yield break;

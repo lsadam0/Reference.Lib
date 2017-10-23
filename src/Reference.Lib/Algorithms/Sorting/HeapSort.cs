@@ -25,7 +25,7 @@ namespace Reference.Lib.Algorithms.Sorting
                 // the largest element occupies position 0
                 // so move it to the end
                 heap.Swap(0, i);
-
+                
                 // reduce the heapsize so that the largest
                 // value we just moved is no longer
                 // considered by Heapify
