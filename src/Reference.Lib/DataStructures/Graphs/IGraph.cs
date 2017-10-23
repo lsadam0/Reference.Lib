@@ -53,36 +53,13 @@ namespace Reference.Lib.DataStructures.Graphs
         /// </summary>
         void Clear();
 
-        ;IEnumerable<T> BreadthFirstSearch(T root);
+        IEnumerable<T> BreadthFirstSearch(T root);
         
         IEnumerable<T> DepthFirstSearch(T root);
-        /*
-        /// <summary>
-        /// Breadth-first search of the graph with sorted levels. Returns <see cref="IEnumerable{T}"/> of the vertices.
-        /// </summary>
-        /// <param name="vertex">The vertex from which the breadth-first search starts.</param>
-        /// <returns>Returns <see cref="IEnumerable{T}"/> of the vertices.</returns>
-        IEnumerable<T> BreadthFirstSearch(T vertex);
-
-        /// <summary>
-        /// Breadth-first search of the graph with sorted levels. Returns <see cref="IEnumerable{T}"/> of <see cref="IEdge{T}"/> representing the edges of the graph.
-        /// </summary>
-        /// <param name="vertex">The vertex from which the breadth-first search starts.</param>
-        /// <returns>.Returns <see cref="IEnumerable{T}"/> of <see cref="IEdge{T}"/> representing the edges of the graph.</returns>
+        
+        /*    
         IEnumerable<IEdge<T>> BreadthFirstSearchEdges(T vertex);
 
-        /// <summary>
-        /// Depth-first search of the graph with sorted levels. Returns <see cref="IEnumerable{T}"/> of the vertices.
-        /// </summary>
-        /// <param name="vertex">The vertex from which the depth-first search starts.</param>
-        /// <returns>Returns <see cref="IEnumerable{T}"/> of the vertices.</returns>
-        IEnumerable<T> DepthFirstSearch(T vertex);
-
-        /// <summary>
-        /// Depth-first search of the graph with sorted levels. Returns <see cref="IEnumerable{T}"/> of <see cref="IEdge{T}"/> representing the edges of the graph.
-        /// </summary>
-        /// <param name="vertex">The vertex from which the depth-first search starts.</param>
-        /// <returns>.Returns <see cref="IEnumerable{T}"/> of <see cref="IEdge{T}"/> representing the edges of the graph.</returns>
         IEnumerable<IEdge<T>> DepthFirstSearchEdges(T vertex);
         */
     }
