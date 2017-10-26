@@ -8,6 +8,12 @@ namespace Reference.Lib.DataStructures.Collections
         public bool IsEmpty => !_items.HasNodes;
         public int Count => _items.Count;
 
+        public void Push(params T[] items)
+        {
+            foreach (var item in items)
+                Push(item);
+        }
+
         public void Push(T item)
         {
             _items.AddLast(item);
