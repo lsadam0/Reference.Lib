@@ -1,24 +1,21 @@
-using Reference.Lib.DataStructures.Trees;
 using Xunit;
 
-namespace Reference.Lib.Test.DataStructures.Trees
+using Reference.Lib.DataStructures.Trees;
+
+namespace Reference.Lib.Tests.DataStructures.Trees
 {
     public class ArrayBasedBinaryTreeTests
     {
+        private class TestTree : ArrayBasedBinaryTree<int>
+        {
+        }
+
         [Fact]
         public void GetLeftIndex_IsCorrect()
         {
             var left = new TestTree().GetLeftIndex(1);
 
             Assert.Equal(3, left);
-        }
-
-        [Fact]
-        public void GetRightIndex_IsCorrect()
-        {
-            var right = new TestTree().GetRightIndex(1);
-
-            Assert.Equal(4, right);
         }
 
         [Fact]
@@ -29,6 +26,14 @@ namespace Reference.Lib.Test.DataStructures.Trees
             Assert.Equal(1, parent);
             parent = tree.GetParentIndex(3);
             Assert.Equal(1, parent);
+        }
+
+        [Fact]
+        public void GetRightIndex_IsCorrect()
+        {
+            var right = new TestTree().GetRightIndex(1);
+
+            Assert.Equal(4, right);
         }
 
         [Fact]
@@ -43,10 +48,6 @@ namespace Reference.Lib.Test.DataStructures.Trees
         {
             var isRight = new TestTree().IsRightChild(4);
             Assert.True(isRight);
-        }
-
-        private class TestTree : ArrayBasedBinaryTree<int>
-        {
         }
     }
 }

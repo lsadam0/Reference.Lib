@@ -1,6 +1,5 @@
-using Reference.Lib.DataStructures.Collections;
-using Xunit;
 
+using Reference.Lib.DataStructures.Collections;
 
 namespace Reference.Lib.Tests.DataStructures.Collections
 {
@@ -10,7 +9,5 @@ namespace Reference.Lib.Tests.DataStructures.Collections
         {
             return new LinkedList<int>();
         }
-
-       
     }
 }

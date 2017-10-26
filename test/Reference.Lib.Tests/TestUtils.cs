@@ -1,18 +1,16 @@
-using Reference.Lib.Utils;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
-using System.Diagnostics.Tracing;
+using System.Linq;
+using Reference.Lib.Utils;
 
-namespace Reference.Lib.Test
+namespace Reference.Lib.Tests
 {
     public static class TestUtils
     {
         public static int[] GetTestData()
         {
-            return new int[] {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
+            return new[] {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
         }
 
         public static SortEntity[] GetEntityTestData()
@@ -23,7 +21,7 @@ namespace Reference.Lib.Test
         public static bool IsSorted<T>(T[] data)
             where T : IComparable<T>
         {
-            for (int i = 1; i < data.Length; ++i)
+            for (var i = 1; i < data.Length; ++i)
                 if (data[i - 1].CompareTo(data[i]) > 0)
                     return false;
             return true;

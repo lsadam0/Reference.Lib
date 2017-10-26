@@ -1,9 +1,7 @@
 using System;
 using System.Text;
-using System.Collections;
-using System.Collections.Generic;
 
-namespace Reference.Lib.Test.Utils
+namespace Reference.Lib.Tests.Utils
 {
     public static class ExtensionMethods
     {
@@ -13,7 +11,7 @@ namespace Reference.Lib.Test.Utils
             if (source.Length != other.Length)
                 return false;
 
-            for (int x = 0; x < source.Length; ++x)
+            for (var x = 0; x < source.Length; ++x)
                 if (!source[x].Equals(other[x]))
                     return false;
 
@@ -30,7 +28,7 @@ namespace Reference.Lib.Test.Utils
 
             var build = new StringBuilder();
             build.Append("[");
-            for (int i = 0; i < source.Length - 1; ++i)
+            for (var i = 0; i < source.Length - 1; ++i)
                 build.Append($"{source[i]}|");
 
             build.Append(source[source.Length - 1]);

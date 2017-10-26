@@ -1,7 +1,8 @@
-using Reference.Lib.DataStructures.Trees;
 using Xunit;
 
-namespace Reference.Lib.Test.DataStructures.Trees
+using Reference.Lib.DataStructures.Trees;
+
+namespace Reference.Lib.Tests.DataStructures.Trees
 {
     public class TrieTests
     {

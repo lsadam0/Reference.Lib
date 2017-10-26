@@ -4,44 +4,32 @@ using System.Linq;
 
 namespace Reference.Lib.DataStructures.Graphs
 {
-    public sealed class AlGraph<T> : IGraph<T>
+    public sealed class DirectedAlGraph<T> : IGraph<T>
         where T : IComparable<T>
     {
         private readonly IDictionary<T, HashSet<T>> _al = new Dictionary<T, HashSet<T>>();
 
-        public bool IsDirected => false;
+        public bool IsDirected => true;
 
         public bool IsWeighted => false;
 
         public int EdgesCount { get; private set; }
 
         public int VerticesCount => _al.Keys.Count;
-
         public IEnumerable<T> Vertices => _al.Keys.Select(x => x);
-
 
         public IEnumerable<IEdge<T>> Edges => _al.SelectMany(x => x.Value.Select(y => new Edge<T>(x.Key, y)));
 
         public bool AddEdge(T origin, T destination)
         {
-            // no self-paths
             if (Equals(origin, destination)) return false;
 
-            // ensure origin exists
             if (!AddVertex(origin))
-                if (_al[origin].Contains(destination)) return false; // edge already exists
+                if (_al[origin].Contains(destination)) return false;
 
-            // ensure destination exists
             AddVertex(destination);
 
-            // add both directions
             _al[origin].Add(destination);
-            _al[destination].Add(origin);
-
-            /* We've added two directions, but these two edges
-             * only connect origin and destination, so technically
-             * these are a single edge.
-             */
             ++EdgesCount;
             return true;
         }
@@ -60,25 +48,41 @@ namespace Reference.Lib.DataStructures.Graphs
                 AddVertex(v);
         }
 
+
         public void Clear()
         {
             EdgesCount = 0;
             _al.Clear();
         }
 
+
+        public IEnumerable<IEdge<T>> GetIncomingEdges(T vertex)
+        {
+            EnforceHasVertex(vertex);
+
+            foreach (var kvp in _al.Where(x => !Equals(x.Key, vertex)))
+                if (kvp.Value.Contains(vertex))
+                    yield return new Edge<T>(kvp.Key, vertex);
+        }
+
+        public IEnumerable<IEdge<T>> GetOutgoingEdges(T vertex)
+        {
+            EnforceHasVertex(vertex);
+
+            foreach (var e in _al[vertex])
+                yield return new Edge<T>(vertex, e);
+        }
+
         public bool HasEdge(T origin, T destination)
         {
             return HasVertex(origin)
-                   && HasVertex(destination)
-                   && _al[origin].Contains(destination)
-                   && _al[destination].Contains(origin);
+                   && _al[origin].Contains(destination);
         }
 
         public bool HasVertex(T vertex)
         {
             return _al.ContainsKey(vertex);
         }
-
 
         public bool RemoveEdge(T origin, T destination)
         {
@@ -93,53 +97,28 @@ namespace Reference.Lib.DataStructures.Graphs
 
         public bool RemoveVertex(T vertex)
         {
-            // already removed?
             if (!_al.ContainsKey(vertex)) return false;
 
             // remove all edges to this vertex
+            var incomingEdges = 0;
             foreach (var e in _al)
                 if (e.Value.Contains(vertex))
+                {
                     e.Value.Remove(vertex);
+                    ++incomingEdges;
+                }
 
             var entry = _al[vertex];
-
-            // Since we count both directions as a single edge,
-            // just reduce the edge count by the number present
-            // for the vertex
-            EdgesCount -= entry.Count;
             _al.Remove(vertex);
 
+            EdgesCount -= entry.Count + incomingEdges;
             return true;
-        }
-
-        public IEnumerable<IEdge<T>> GetOutgoingEdges(T vertex)
-        {
-            return GetEdgesFor(vertex);
-        }
-
-        public IEnumerable<IEdge<T>> GetIncomingEdges(T vertex)
-        {
-            return GetEdgesFor(vertex);
         }
 
         private void EnforceHasVertex(T vertex)
         {
             if (!HasVertex(vertex))
                 throw new KeyNotFoundException();
-        }
-
-
-        private IEnumerable<IEdge<T>> GetEdgesFor(T vertex)
-        {
-            EnforceHasVertex(vertex);
-
-            /* Because each edge addition is symmetrical, the
-                set of outgoing and the set of incoming edges
-                are the same.  Thus we simply iterate over the set
-                contained at the request vertex
-             */
-            foreach (var edge in _al[vertex])
-                yield return new Edge<T>(vertex, edge);
         }
     }
 }

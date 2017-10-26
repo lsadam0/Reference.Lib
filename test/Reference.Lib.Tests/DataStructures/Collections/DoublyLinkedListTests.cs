@@ -1,7 +1,6 @@
-using Reference.Lib.DataStructures.Collections;
+using System.Collections.Generic;
 using Xunit;
-using System;
-
+using Reference.Lib.DataStructures.Collections;
 
 namespace Reference.Lib.Tests.DataStructures.Collections
 {
@@ -13,13 +12,12 @@ namespace Reference.Lib.Tests.DataStructures.Collections
         }
 
 
-       
-        protected override void IsInOrder(DoublyLinkedList<int> list, int expectedCount, System.Collections.Generic.HashSet<int> contains)
+        protected override void IsInOrder(DoublyLinkedList<int> list, int expectedCount, HashSet<int> contains)
         {
             base.IsInOrder(list, expectedCount, contains);
 
             IDoublyLinkedListNode<int> current = list.Tail;
-            var value = Int32.MaxValue;
+            var value = int.MaxValue;
             var count = 0;
             while (current != null)
             {

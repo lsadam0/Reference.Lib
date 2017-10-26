@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Reference.Lib.DataStructures.Graphs
 {
-
     public interface IGraph<T>
         where T : IComparable<T>
     {
@@ -41,26 +39,6 @@ namespace Reference.Lib.DataStructures.Graphs
 
         bool RemoveVertex(T vertex);
 
-        /// <summary>
-        /// Returns the degree of the given vertex.
-        /// </summary>
-        /// <param name="vertex">The vertex to calculate its degeree.</param>
-        /// <returns>Returns the degree of the given vertex.</returns>
-        int Degree(T vertex);
-
-        /// <summary>
-        /// Removes all edges and vertices from the graph.
-        /// </summary>
         void Clear();
-
-        IEnumerable<T> BreadthFirstSearch(T root);
-        
-        IEnumerable<T> DepthFirstSearch(T root);
-        
-        /*    
-        IEnumerable<IEdge<T>> BreadthFirstSearchEdges(T vertex);
-
-        IEnumerable<IEdge<T>> DepthFirstSearchEdges(T vertex);
-        */
     }
 }

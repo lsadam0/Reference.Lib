@@ -1,7 +1,6 @@
-using Reference.Lib.Algorithms.General;
-using Xunit;
 using System;
-
+using Xunit;
+using Reference.Lib.Algorithms.General;
 
 namespace Reference.Lib.Tests.Algorithms.General
 {

@@ -63,7 +63,7 @@ namespace Reference.Lib.DataStructures.Trees
         public int Height { get; internal set; }
 
 
-        public bool IsHeightBalanced =>  Height <= OptimalHeight;
+        public bool IsHeightBalanced => Height <= OptimalHeight;
 
         /// <summary>
         ///     * Left & RIght sub-tree heights differ by 1, at most
@@ -72,31 +72,6 @@ namespace Reference.Lib.DataStructures.Trees
         /// </summary>
         /// <returns></returns>
         public bool IsBalanced => IsBalancedNode(Root);
-
-        private bool IsBalancedNode(BinaryTreeNode<T> node)
-        {
-            if (node == null) return true;
-
-            // this fails to get correct height
-            var leftH = node.HasLeftChild ? GetTreeHeightFrom(node.Left) : 0;
-            var rightH = node.HasRightChild ? GetTreeHeightFrom(node.Right) : 0;
-
-            return Math.Abs(leftH - rightH) <= 1 && IsBalancedNode(node.Right) && IsBalancedNode(node.Left);
-        }
-
-        protected int GetTreeHeightFrom(BinaryTreeNode<T> node)
-        {
-            var offset = node.Height;
-            var max = 0;
-
-            foreach (var child in InOrder(node))
-            {
-                var adjusted = child.Height - offset;
-                max = adjusted > max ? adjusted : max;
-            }
-
-            return max;
-        }
 
         public int OptimalHeight => (int) Math.Log(Count, 2) + 1;
 
@@ -151,6 +126,31 @@ namespace Reference.Lib.DataStructures.Trees
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private bool IsBalancedNode(BinaryTreeNode<T> node)
+        {
+            if (node == null) return true;
+
+            // this fails to get correct height
+            var leftH = node.HasLeftChild ? GetTreeHeightFrom(node.Left) : 0;
+            var rightH = node.HasRightChild ? GetTreeHeightFrom(node.Right) : 0;
+
+            return Math.Abs(leftH - rightH) <= 1 && IsBalancedNode(node.Right) && IsBalancedNode(node.Left);
+        }
+
+        protected int GetTreeHeightFrom(BinaryTreeNode<T> node)
+        {
+            var offset = node.Height;
+            var max = 0;
+
+            foreach (var child in InOrder(node))
+            {
+                var adjusted = child.Height - offset;
+                max = adjusted > max ? adjusted : max;
+            }
+
+            return max;
         }
 
 
@@ -287,8 +287,8 @@ namespace Reference.Lib.DataStructures.Trees
         }
 
 
-        protected IEnumerable<BinaryTreeNode<T>> 
-        BreadthFirstTraversal()
+        protected IEnumerable<BinaryTreeNode<T>>
+            BreadthFirstTraversal()
         {
             if (Root == null)
                 yield break;

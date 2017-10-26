@@ -167,11 +167,9 @@ namespace Reference.Lib.DataStructures.Heaps
                     rootIndex = GetRightIndex(index);
             }
 
-            if (rootIndex != index)
-            {
-                Swap(index, rootIndex);
-                Heapify(rootIndex);
-            }
+            if (rootIndex == index) return;
+            Swap(index, rootIndex);
+            Heapify(rootIndex);
         }
 
         private void BubbleUp(int idx)
@@ -185,12 +183,10 @@ namespace Reference.Lib.DataStructures.Heaps
                 return;
 
 
-            if (!HeapProperty(GetElement(parent), GetElement(idx)))
-            {
-                // heap property not maintained
-                Swap(parent, idx);
-                BubbleUp(parent);
-            }
+            if (HeapProperty(GetElement(parent), GetElement(idx))) return;
+            // heap property not maintained
+            Swap(parent, idx);
+            BubbleUp(parent);
         }
 
         public void Swap(int x, int y)

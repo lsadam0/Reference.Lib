@@ -1,5 +1,5 @@
-using Reference.Lib.DataStructures.Trees;
 using Xunit;
+using Reference.Lib.DataStructures.Trees;
 
 namespace Reference.Lib.Tests.DataStructures.Trees
 {
@@ -31,9 +31,9 @@ namespace Reference.Lib.Tests.DataStructures.Trees
             var tree = BuildDefaultTree();
 
 
-            Assert.Equal<int>(7, tree.Count);
+            Assert.Equal(7, tree.Count);
             tree.Add(9);
-            Assert.Equal<int>(8, tree.Count);
+            Assert.Equal(8, tree.Count);
         }
 
         [Fact]
@@ -47,31 +47,6 @@ namespace Reference.Lib.Tests.DataStructures.Trees
 
             tree = new BinarySearchTree<int>();
             Assert.True(tree.IsEmpty);
-        }
-
-
-        [Fact]
-        public void BinarySearchTree_IsPerfect_DoesIdentifyPerfect()
-        {
-            var tree = BuildDefaultTree();
-
-            Assert.True(tree.IsPerfect);
-        }
-
-        [Fact]
-        public void BinarySearchTree_IsHeightBalanced_DoesIdentifyBalanced()
-        {
-            var tree = new BinarySearchTree<int>();
-            // Assert.True(tree.IsHeightBalanced);
-
-            tree = BuildDefaultTree();
-            Assert.True(tree.IsHeightBalanced);
-
-            tree.Add(7);
-            Assert.True(tree.IsHeightBalanced);
-
-            tree.Add(6);
-            Assert.False(tree.IsHeightBalanced);
         }
 
         [Fact]
@@ -91,11 +66,27 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
+        public void BinarySearchTree_IsComplete_DoesIdentifyComplete()
+        {
+            var tree = BuildDefaultTree();
+            Assert.True(tree.IsComplete);
+
+            tree.Add(2);
+            Assert.True(tree.IsComplete, "2");
+
+            tree.Add(9);
+            Assert.True(tree.IsComplete, "9");
+
+            tree.Add(11);
+            Assert.False(tree.IsComplete, "11");
+        }
+
+        [Fact]
         public void BinarySearchTree_IsDegenerate_DoesIdentifyDegenerateTree()
         {
             var tree = new BinarySearchTree<int>();
 
-            for (int i = 10; i >= 0; --i)
+            for (var i = 10; i >= 0; --i)
                 tree.Add(i);
 
             Assert.True(tree.IsDegenerate);
@@ -131,19 +122,28 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void BinarySearchTree_IsComplete_DoesIdentifyComplete()
+        public void BinarySearchTree_IsHeightBalanced_DoesIdentifyBalanced()
+        {
+            var tree = new BinarySearchTree<int>();
+            // Assert.True(tree.IsHeightBalanced);
+
+            tree = BuildDefaultTree();
+            Assert.True(tree.IsHeightBalanced);
+
+            tree.Add(7);
+            Assert.True(tree.IsHeightBalanced);
+
+            tree.Add(6);
+            Assert.False(tree.IsHeightBalanced);
+        }
+
+
+        [Fact]
+        public void BinarySearchTree_IsPerfect_DoesIdentifyPerfect()
         {
             var tree = BuildDefaultTree();
-            Assert.True(tree.IsComplete);
 
-            tree.Add(2);
-            Assert.True(tree.IsComplete, "2");
-
-            tree.Add(9);
-            Assert.True(tree.IsComplete, "9");
-
-            tree.Add(11);
-            Assert.False(tree.IsComplete, "11");
+            Assert.True(tree.IsPerfect);
         }
     }
 }

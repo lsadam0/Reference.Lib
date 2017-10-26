@@ -1,7 +1,8 @@
-using Reference.Lib.DataStructures.Trees;
-using Xunit;
 using System;
-using Reference.Lib.Test.Utils;
+using Reference.Lib.Tests.Utils;
+using Xunit;
+
+using Reference.Lib.DataStructures.Trees;
 
 namespace Reference.Lib.Tests.DataStructures.Trees
 {
@@ -17,31 +18,41 @@ namespace Reference.Lib.Tests.DataStructures.Trees
             return tree;
         }
 
-        [Fact]
-        public void BinaryTree_Traverse_InOrder()
+        private void TraversalTest(Action<BinaryTree<int>> setup, int[] expected)
         {
-            TraversalTest(
-                tree => tree.TraversalMethod = TreeTraversalMethod.InOrder,
-                new int[5] {4, 2, 5, 1, 3}
-            );
+            var tree = BuildTraversalTree();
+
+            setup(tree);
+            var traversed = new int[tree.Count];
+
+            var x = 0;
+            foreach (var item in tree)
+            {
+                traversed[x] = item;
+                ++x;
+            }
+            // var traversed = tree// method(tree).Select(x => x.Value).ToArray();
+
+            Assert.NotNull(traversed);
+            Assert.True(traversed.ValueEquality(expected),
+                $"Expected: {expected.Format()} Actual: {traversed.Format()}");
         }
 
         [Fact]
-        public void BinaryTree_Traverse_PreOrder()
+        public void BinaryTree_OptimalHeight_DoesCalculate()
         {
-            TraversalTest(
-                tree => tree.TraversalMethod = TreeTraversalMethod.PreOrder,
-                new int[5] {1, 2, 4, 5, 3}
-            );
+            var tree = BuildTraversalTree();
+
+            Assert.Equal(3, tree.Height);
+            Assert.Equal(3, tree.OptimalHeight);
         }
 
-
         [Fact]
-        public void BinaryTree_Traverse_PostOrder()
+        public void BinaryTree_Traverse_BreadthFirst()
         {
             TraversalTest(
-                tree => tree.TraversalMethod = TreeTraversalMethod.PostOrder,
-                new int[5] {4, 5, 2, 3, 1}
+                tree => tree.TraversalMethod = TreeTraversalMethod.BreadthFirst,
+                new int[5] {1, 2, 3, 4, 5}
             );
         }
 
@@ -56,41 +67,31 @@ namespace Reference.Lib.Tests.DataStructures.Trees
         }
 
         [Fact]
-        public void BinaryTree_Traverse_BreadthFirst()
+        public void BinaryTree_Traverse_InOrder()
         {
             TraversalTest(
-                tree => tree.TraversalMethod = TreeTraversalMethod.BreadthFirst,
-                new int[5] {1, 2, 3, 4, 5}
+                tree => tree.TraversalMethod = TreeTraversalMethod.InOrder,
+                new int[5] {4, 2, 5, 1, 3}
+            );
+        }
+
+
+        [Fact]
+        public void BinaryTree_Traverse_PostOrder()
+        {
+            TraversalTest(
+                tree => tree.TraversalMethod = TreeTraversalMethod.PostOrder,
+                new int[5] {4, 5, 2, 3, 1}
             );
         }
 
         [Fact]
-        public void BinaryTree_OptimalHeight_DoesCalculate()
+        public void BinaryTree_Traverse_PreOrder()
         {
-            var tree = BuildTraversalTree();
-
-            Assert.Equal(3, tree.Height);
-            Assert.Equal(3, tree.OptimalHeight);
-        }
-
-        private void TraversalTest(Action<BinaryTree<int>> setup, int[] expected)
-        {
-            var tree = BuildTraversalTree();
-
-            setup(tree);
-            var traversed = new int[tree.Count];
-
-            int x = 0;
-            foreach (var item in tree)
-            {
-                traversed[x] = item;
-                ++x;
-            }
-            // var traversed = tree// method(tree).Select(x => x.Value).ToArray();
-
-            Assert.NotNull(traversed);
-            Assert.True(traversed.ValueEquality(expected),
-                $"Expected: {expected.Format()} Actual: {traversed.Format()}");
+            TraversalTest(
+                tree => tree.TraversalMethod = TreeTraversalMethod.PreOrder,
+                new int[5] {1, 2, 4, 5, 3}
+            );
         }
     }
 }

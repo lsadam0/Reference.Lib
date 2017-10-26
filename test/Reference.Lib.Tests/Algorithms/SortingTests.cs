@@ -1,10 +1,9 @@
-using Reference.Lib.Utils;
-using Xunit;
 using System;
+using Xunit;
 using Reference.Lib.Algorithms.Sorting;
+using Reference.Lib.Utils;
 
-
-namespace Reference.Lib.Test.Algorithms.Sorting
+namespace Reference.Lib.Tests.Algorithms.Sorting
 {
     public class SortingTests
     {
@@ -21,6 +20,12 @@ namespace Reference.Lib.Test.Algorithms.Sorting
         }
 
         [Fact]
+        public void HeapSort_DoesSort()
+        {
+            Execute(e => e.HeapSort());
+        }
+
+        [Fact]
         public void QuickSort_DoesSort()
         {
             Execute(e => e.QuickSort());
@@ -30,12 +35,6 @@ namespace Reference.Lib.Test.Algorithms.Sorting
         public void TopDownMergeSort_DoesSort()
         {
             Execute(e => e.TopDownMergeSort());
-        }
-
-        [Fact]
-        public void HeapSort_DoesSort()
-        {
-            Execute(e => e.HeapSort());
         }
     }
 }
