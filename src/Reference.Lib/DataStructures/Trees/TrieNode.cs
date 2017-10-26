@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Reference.Lib.DataStructures.Collections;
 
 namespace Reference.Lib.DataStructures.Trees
 {
