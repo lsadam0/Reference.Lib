@@ -17,6 +17,9 @@ namespace Reference.Lib.DataStructures.Graphs
         IEnumerable<T> Vertices { get; }
 
 
+        bool AreAdjacent(T a, T b);
+
+
         IEnumerable<IEdge<T>> Edges { get; }
 
         bool AddEdge(T origin, T destination);

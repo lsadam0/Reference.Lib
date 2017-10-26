@@ -60,6 +60,7 @@ namespace Reference.Lib.DataStructures.Graphs
                 AddVertex(v);
         }
 
+
         public void Clear()
         {
             EdgesCount = 0;
@@ -140,6 +141,13 @@ namespace Reference.Lib.DataStructures.Graphs
              */
             foreach (var edge in _al[vertex])
                 yield return new Edge<T>(vertex, edge);
+        }
+
+        public bool AreAdjacent(T a, T b)
+        {
+          if (!HasVertex(a) || !HasVertex(b)) return false;
+
+          return _al[a].Contains(b);
         }
     }
 }

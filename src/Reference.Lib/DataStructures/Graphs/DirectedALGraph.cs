@@ -120,5 +120,13 @@ namespace Reference.Lib.DataStructures.Graphs
             if (!HasVertex(vertex))
                 throw new KeyNotFoundException();
         }
+
+
+        public bool AreAdjacent(T a, T b)
+        {
+          if (!HasVertex(a) || !HasVertex(b)) return false;
+
+          return _al[a].Contains(b);
+        }
     }
 }
