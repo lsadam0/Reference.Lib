@@ -2,6 +2,14 @@ namespace Reference.Lib.DataStructures.Collections
 {
     public class DoublyLinkedList<T> : LinkedListBase<T, DoublyLinkedListNode<T>>
     {
+        public DoublyLinkedList(T[] items) : base(items)
+        {
+        }
+
+        public DoublyLinkedList()
+        {
+        }
+
         protected override DoublyLinkedListNode<T> GetPredecessorOf(DoublyLinkedListNode<T> node)
         {
             return node.Last as DoublyLinkedListNode<T>;
