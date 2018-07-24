@@ -1,11 +1,27 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Reference.Lib.DataStructures.Collections
 {
-    public class Queue<T>
+    /// <summary>
+    /// Standard First-In-First-Out Queue
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Queue<T> : IEnumerable<T>
     {
         private readonly LinkedList<T> _items = new LinkedList<T>();
+
+        public Queue()
+        {
+        }
+
+        public Queue(T[] items) : this() {
+            this.Push(items);
+        }
+
         public bool IsEmpty => !_items.HasNodes;
+
         public int Count => _items.Count;
 
         public void Push(params T[] items)
@@ -36,5 +52,13 @@ namespace Reference.Lib.DataStructures.Collections
 
             return _items.Head.Value;
         }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            while (!this.IsEmpty)
+                yield return this.Pop();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

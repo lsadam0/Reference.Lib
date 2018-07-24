@@ -81,19 +81,7 @@ namespace Reference.Lib.DataStructures.Trees
         /// </summary>
         /// <returns></returns>
         public bool IsPerfect => IsFull && IsComplete;
-        /*
-        {
-            get
-            {
-                bool Method(BinaryTreeNode<T> node)
-                {
-                    return IsPerfectDelegate(null, node);
-                }
-
-                return VerifyProperty(Method, Root);
-            }
-        }*/
-
+      
         public virtual IEnumerator<T> GetEnumerator()
         {
             if (Root == null)

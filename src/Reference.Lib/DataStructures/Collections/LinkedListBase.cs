@@ -11,6 +11,13 @@ namespace Reference.Lib.DataStructures.Collections
 
         internal TN Tail;
 
+        protected LinkedListBase(TV[] items): this() 
+        {
+            foreach (var item in items)
+                this.AddLast(item);
+        }
+
+
         protected LinkedListBase()
         {
             Comparer = Comparer<TV>.Default;
@@ -58,6 +65,7 @@ namespace Reference.Lib.DataStructures.Collections
                 InitialAdd(last);
             else
                 AddAfter(Tail, last);
+                
             return last;
         }
 

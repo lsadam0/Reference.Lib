@@ -2,6 +2,16 @@ namespace Reference.Lib.DataStructures.Collections
 {
     public class LinkedList<T> : LinkedListBase<T, LinkedListNode<T>>
     {
+        public LinkedList() : base() 
+        {
+
+        }
+
+        public LinkedList(T[] items): base(items)
+        {
+
+        }
+        
         protected override void AddNodeAfter(LinkedListNode<T> node, LinkedListNode<T> value)
         {
             value.Next = node.Next;
