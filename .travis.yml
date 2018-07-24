@@ -1,0 +1,7 @@
+language: C#
+solution: Reference.Lib.sln
+dotnet: 2.1
+script:    
+  - dotnet restore
+  - ./Build.sh
+  - ./Test.sh
