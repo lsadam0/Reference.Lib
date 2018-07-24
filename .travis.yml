@@ -1,6 +1,7 @@
 language: csharp
-solution: Reference.Lib.sln
+mono: none
 dotnet: 2.1
+solution: Reference.Lib.sln
 script:    
   - dotnet restore
   - ./Build.sh
