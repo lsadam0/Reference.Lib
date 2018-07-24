@@ -1,4 +1,4 @@
-language: C#
+language: csharp
 solution: Reference.Lib.sln
 dotnet: 2.1
 script:    
