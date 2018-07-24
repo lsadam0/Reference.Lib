@@ -22,7 +22,7 @@ namespace Reference.Lib.Tests.DataStructures.Collections
                 ++count;
             }
 
-            Assert.Equal(5, count);
+            Assert.Equal(6, count);
             Assert.True(queue.IsEmpty);
         }
 
